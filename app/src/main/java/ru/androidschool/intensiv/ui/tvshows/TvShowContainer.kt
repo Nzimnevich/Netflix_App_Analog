@@ -7,9 +7,9 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Movie
 import ru.androidschool.intensiv.databinding.SerialsItemBinding
 
-class MainContainer(
+class TvShowContainer(
     private val content: Movie,
-    param: (Any) -> Unit
+    movie: (Movie) -> Unit
 ) : BindableItem<SerialsItemBinding>() {
 
     override fun getLayout(): Int = R.layout.serials_item
@@ -22,7 +22,6 @@ class MainContainer(
         Picasso.get()
             .load("https://m.media-amazon.com/images/M/MV5BYTk3MDljOWQtNGI2My00OTEzLTlhYjQtOTQ4ODM2MzUwY2IwXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_.jpg")
             .into(view.imageIv)
-
     }
 
     override fun initializeViewBinding(v: View) = SerialsItemBinding.bind(v)

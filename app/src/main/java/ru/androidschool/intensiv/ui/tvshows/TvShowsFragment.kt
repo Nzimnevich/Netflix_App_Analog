@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import ru.androidschool.intensiv.data.MockRepository
@@ -32,12 +33,12 @@ class TvShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recipesRv.layoutManager = GridLayoutManager(context, 1)
+        binding.recipesRv.layoutManager = LinearLayoutManager(context)
         binding.recipesRv.adapter = adapter.apply { addAll(listOf()) }
 
         val moviesList =
             MockRepository.getMovies().map {
-                MainContainer(
+                TvShowContainer(
                     it
                 ) { movie -> }
             }.toList()
