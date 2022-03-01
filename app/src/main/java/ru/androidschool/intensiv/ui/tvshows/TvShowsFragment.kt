@@ -33,8 +33,8 @@ class TvShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recipesRv.layoutManager = LinearLayoutManager(context)
-        binding.recipesRv.adapter = adapter.apply { addAll(listOf()) }
+        binding.tvShowsRv.layoutManager = LinearLayoutManager(context)
+        binding.tvShowsRv.adapter = adapter.apply { addAll(listOf()) }
 
         val moviesList =
             MockRepository.getMovies().map {
@@ -43,7 +43,7 @@ class TvShowsFragment : Fragment() {
                 ) { movie -> }
             }.toList()
 
-        binding.recipesRv.adapter = adapter.apply { addAll(moviesList) }
+        binding.tvShowsRv.adapter = adapter.apply { addAll(moviesList) }
     }
 
     override fun onDestroyView() {

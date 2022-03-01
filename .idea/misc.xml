@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/bottom_navigation_item.xml" value="0.2005" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_arrow_back.xml" value="0.331" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_delete.xml" value="0.2005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_search.xml" value="0.2005" />
@@ -26,10 +27,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_card.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_small.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_with_text.xml" value="0.20572916666666666" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/movie_details_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/movie_details_fragment.xml" value="0.5" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/movie_details_fragment1.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/search_toolbar.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/selector_favorite.xml" value="0.2703804347826087" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/serials_item.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/serials_item.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/tv_shows_fragment.xml" value="0.1" />
       </map>
     </option>

@@ -76,5 +76,4 @@ dependencies {
 
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
-    implementation 'com.mikhaellopez:circularimageview:4.3.0'
 }
