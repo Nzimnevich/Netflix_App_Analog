@@ -11,6 +11,12 @@
             android:background="@color/blueDark">
 
         <ImageView
+                android:id="@+id/image_movie_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iv_aquamen" />
+
+        <ImageView
                 android:id="@+id/arrow_back_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -18,12 +24,6 @@
                 android:layout_marginTop="@dimen/material_margin_normal"
                 android:src="@drawable/ic_arrow_back"
                 tools:ignore="ContentDescription" />
-
-        <ImageView
-                android:id="@+id/image_movie_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/iv_aquamen" />
 
         <TextView
                 android:id="@+id/title_movie_iv"
@@ -46,14 +46,16 @@
                 android:layout_marginRight="@dimen/mini_margin"
                 android:button="@drawable/selector_favorite" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/watch_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title_movie_iv"
                 android:layout_marginLeft="@dimen/mini_margin"
+                android:background="@drawable/hard_button"
                 android:text="@string/title_watch_btn"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="4pt" />
 
         <RatingBar
                 android:id="@+id/ratingBar_rb"
@@ -79,16 +81,6 @@
                 android:textColor="@color/white"
                 android:textStyle="italic" />
 
-
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_first_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:src="@drawable/iv_mamoa"-->
-<!--                app:civ_border="false" />-->
         <ImageView
                 android:id="@+id/foto_first_circleV"
                 android:layout_width="60dp"
@@ -96,8 +88,7 @@
                 android:layout_below="@id/desc_tv"
                 android:layout_marginLeft="@dimen/mini_margin"
                 android:layout_marginTop="@dimen/mini_margin"
-                android:src="@drawable/iv_mamoa"
-                 />
+                android:src="@drawable/iv_mamoa" />
 
         <TextView
                 android:id="@+id/first_name_actor_tv"
@@ -108,17 +99,6 @@
                 android:text="@string/name_first_actor"
                 android:textColor="@color/white" />
 
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_second_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="36dp"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:layout_toRightOf="@id/foto_first_circleV"-->
-<!--                android:src="@drawable/iv_amberHeard"-->
-<!--                app:civ_border="false" />-->
-
         <ImageView
                 android:id="@+id/foto_second_circleV"
                 android:layout_width="60dp"
@@ -127,8 +107,7 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="@dimen/mini_margin"
                 android:layout_toRightOf="@id/foto_first_circleV"
-                android:src="@drawable/iv_amber_heard"
-               />
+                android:src="@drawable/iv_amber_heard" />
 
         <TextView
                 android:layout_width="60dp"
@@ -139,16 +118,6 @@
                 android:text="@string/name_second_actor"
                 android:textColor="@color/white" />
 
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_third_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="36dp"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:layout_toRightOf="@id/foto_second_circleV"-->
-<!--                android:src="@drawable/iv_patrikWilson"-->
-<!--                app:civ_border="false" />-->
         <ImageView
                 android:id="@+id/foto_third_circleV"
                 android:layout_width="60dp"
@@ -157,8 +126,7 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="@dimen/mini_margin"
                 android:layout_toRightOf="@id/foto_second_circleV"
-                android:src="@drawable/iv_patrik_wilson"
-                />
+                android:src="@drawable/iv_patrik_wilson" />
 
         <TextView
                 android:layout_width="60dp"
@@ -169,16 +137,16 @@
                 android:text="@string/third_name_actor"
                 android:textColor="@color/white" />
 
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_forth_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="36dp"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:layout_toRightOf="@id/foto_third_circleV"-->
-<!--                android:src="@drawable/iv_nicoleKidman"-->
-<!--                app:civ_border="false" />-->
+        <!--        <com.mikhaellopez.circularimageview.CircularImageView-->
+        <!--                android:id="@+id/foto_forth_circleV"-->
+        <!--                android:layout_width="60dp"-->
+        <!--                android:layout_height="60dp"-->
+        <!--                android:layout_below="@id/desc_tv"-->
+        <!--                android:layout_marginLeft="36dp"-->
+        <!--                android:layout_marginTop="@dimen/mini_margin"-->
+        <!--                android:layout_toRightOf="@id/foto_third_circleV"-->
+        <!--                android:src="@drawable/iv_nicoleKidman"-->
+        <!--                app:civ_border="false" />-->
 
         <ImageView
                 android:id="@+id/foto_forth_circleV"
@@ -188,8 +156,7 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="@dimen/mini_margin"
                 android:layout_toRightOf="@id/foto_third_circleV"
-                android:src="@drawable/iv_nicole_kidman"
-              />
+                android:src="@drawable/iv_nicole_kidman" />
 
         <TextView
                 android:layout_width="60dp"
