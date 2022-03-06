@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/hard_button.xml" value="0.233" />
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/some_button_style.xml" value="0.233" />
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/feed_fragment.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_card.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_with_text.xml" value="0.2630208333333333" />
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/movie_details_fragment.xml" value="0.29347826086956524" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/bottom_navigation_item.xml" value="0.2005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_arrow_back.xml" value="0.331" />

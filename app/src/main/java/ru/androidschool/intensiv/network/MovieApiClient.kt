@@ -6,11 +6,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MovieApiClient {
-    private const val BASE_URL = "https://api.themoviedb.org/3/movie/"
+    private const val BASE_URL = "https://api.themoviedb.org/3/"
 
     private var client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(
-            HttpLoggingInterceptor().apply {
+            HttpLoggingInterceptor(CustomHttpLogging()).apply {
                 this.level = HttpLoggingInterceptor.Level.BODY
             }
         )

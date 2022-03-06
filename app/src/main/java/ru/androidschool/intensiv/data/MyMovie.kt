@@ -7,11 +7,12 @@ data class MyMovie(
     var title: String?,
     @SerializedName("overview")
     var description: String?,
-    @SerializedName("poster_path")
-    var image: String?,
     @SerializedName("release_date")
     var data: String?,
     @SerializedName("vote_average")
     var rating: Float?
-
-)
+) {
+    @SerializedName("poster_path")
+    var image: String? = null
+        get() = "https://image.tmdb.org/t/p/w500$field"
+}

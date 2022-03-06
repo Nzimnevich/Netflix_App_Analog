@@ -7,8 +7,8 @@ import ru.androidschool.intensiv.data.MovieResponse
 
 interface MovieApiInterface {
 
-    @GET("/movie/now_playing")
-    fun getAllMovies(@Query("api_key") apiKey: String, @Query("language") language: String): Call<List<MovieResponse>>
+    @GET("movie/now_playing")
+    fun getAllMovies(@Query("api_key") apiKey: String, @Query("language") language: String): Call<MovieResponse>
 
     @GET("/movie/upcoming")
     fun getAllNovelties(): Call<List<MovieResponse>>

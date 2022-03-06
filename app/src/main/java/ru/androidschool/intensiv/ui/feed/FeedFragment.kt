@@ -1,17 +1,24 @@
 package ru.androidschool.intensiv.ui.feed
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import ru.androidschool.intensiv.BuildConfig.THE_MOVIE_DATABASE_API
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MockRepository
+import ru.androidschool.intensiv.adapter.MoviesAdapter
 import ru.androidschool.intensiv.data.Movie
+import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
+import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
 
@@ -58,36 +65,57 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
         }
 
-        // Используя Мок-репозиторий получаем фэйковый список фильмов
-        val moviesList = listOf(
-            MainCardContainer(
-                R.string.recommended,
-                MockRepository.getMovies().map {
-                    MovieItem(it) { movie ->
-                        openMovieDetails(
-                            movie
-                        )
-                    }
-                }.toList()
-            )
+//        // Используя Мок-репозиторий получаем фэйковый список фильмов
+//        val moviesList = listOf(
+//            MainCardContainer(
+//                R.string.recommended,
+//                MockRepository.getMovies().map {
+//                    MovieItem(it) { movie ->
+//                        openMovieDetails(
+//                            movie
+//                        )
+//                    }
+//                }.toList()
+//            )
+//        )
+
+        val allMovies = MovieApiClient.apiClient.getAllMovies(THE_MOVIE_DATABASE_API, "ru")
+
+        allMovies.enqueue(object : Callback<MovieResponse> {
+
+            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
+                Log.e(TAG, error.toString())
+            }
+
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
+
+                val movies = response.body()?.movies
+                movies?.let {
+                    binding.moviesRecyclerView.adapter = MoviesAdapter(movies, R.layout.item_with_text)
+                }
+            }
+        }
         )
 
-        binding.moviesRecyclerView.adapter = adapter.apply { addAll(moviesList) }
+//        binding.moviesRecyclerView.adapter = adapter.apply { addAll(moviesList) }
 
-        // Используя Мок-репозиторий получаем фэйковый список фильмов
-        // Чтобы отобразить второй ряд фильмов
-        val newMoviesList = listOf(
-            MainCardContainer(
-                R.string.upcoming,
-                MockRepository.getMovies().map {
-                    MovieItem(it) { movie ->
-                        openMovieDetails(movie)
-                    }
-                }.toList()
-            )
-        )
-
-        adapter.apply { addAll(newMoviesList) }
+//        // Используя Мок-репозиторий получаем фэйковый список фильмов
+//        // Чтобы отобразить второй ряд фильмов
+//        val newMoviesList = listOf(
+//            MainCardContainer(
+//                R.string.upcoming,
+//                MockRepository.getMovies().map {
+//                    MovieItem(it) { movie ->
+//                        openMovieDetails(movie)
+//                    }
+//                }.toList()
+//            )
+//        )
+//
+//        adapter.apply { addAll(newMoviesList) }
     }
 
     private fun openMovieDetails(movie: Movie) {
@@ -121,5 +149,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val MIN_LENGTH = 3
         const val KEY_TITLE = "title"
         const val KEY_SEARCH = "search"
+
+        private val TAG = FeedFragment::class.java.simpleName
     }
 }
