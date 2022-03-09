@@ -3,7 +3,7 @@ package ru.androidschool.intensiv.data
 import com.google.gson.annotations.SerializedName
 
 data class MyMovie(
-    @SerializedName("original_title")
+    @SerializedName(value = "original_title", alternate = ["name"])
     var title: String?,
     @SerializedName("overview")
     var description: String?,

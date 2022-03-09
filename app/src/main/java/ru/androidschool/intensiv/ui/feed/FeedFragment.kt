@@ -13,9 +13,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.BuildConfig.THE_MOVIE_DATABASE_API
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.adapter.MoviesAdapter
-import ru.androidschool.intensiv.data.Movie
 import ru.androidschool.intensiv.data.MovieResponse
+import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
 import ru.androidschool.intensiv.network.MovieApiClient
@@ -65,20 +64,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
         }
 
-//        // Используя Мок-репозиторий получаем фэйковый список фильмов
-//        val moviesList = listOf(
-//            MainCardContainer(
-//                R.string.recommended,
-//                MockRepository.getMovies().map {
-//                    MovieItem(it) { movie ->
-//                        openMovieDetails(
-//                            movie
-//                        )
-//                    }
-//                }.toList()
-//            )
-//        )
-
         val allMovies = MovieApiClient.apiClient.getAllMovies(THE_MOVIE_DATABASE_API, "ru")
 
         allMovies.enqueue(object : Callback<MovieResponse> {
@@ -93,32 +78,32 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             ) {
 
                 val movies = response.body()?.movies
-                movies?.let {
-                    binding.moviesRecyclerView.adapter = MoviesAdapter(movies, R.layout.item_with_text)
+
+                var items: List<MainCardContainer>? = null
+                if (movies != null) {
+                    items = listOf(
+                        MainCardContainer(
+                            R.string.recommended,
+                            movies.map {
+                                MovieItem(it) { movie ->
+                                    openMovieDetails(
+                                        movie
+                                    )
+                                }
+                            }.toList()
+                        )
+                    )
+                }
+                binding.moviesRecyclerView.adapter = GroupAdapter<GroupieViewHolder>().apply {
+                    if (items != null) {
+                        addAll(items)
+                    }
                 }
             }
-        }
-        )
-
-//        binding.moviesRecyclerView.adapter = adapter.apply { addAll(moviesList) }
-
-//        // Используя Мок-репозиторий получаем фэйковый список фильмов
-//        // Чтобы отобразить второй ряд фильмов
-//        val newMoviesList = listOf(
-//            MainCardContainer(
-//                R.string.upcoming,
-//                MockRepository.getMovies().map {
-//                    MovieItem(it) { movie ->
-//                        openMovieDetails(movie)
-//                    }
-//                }.toList()
-//            )
-//        )
-//
-//        adapter.apply { addAll(newMoviesList) }
+        })
     }
 
-    private fun openMovieDetails(movie: Movie) {
+    private fun openMovieDetails(movie: MyMovie) {
         val bundle = Bundle()
         bundle.putString(KEY_TITLE, movie.title)
         findNavController().navigate(R.id.movie_details_fragment, bundle, options)

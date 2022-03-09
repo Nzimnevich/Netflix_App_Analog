@@ -1,16 +1,23 @@
 package ru.androidschool.intensiv.ui.tvshows
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import ru.androidschool.intensiv.data.MockRepository
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import ru.androidschool.intensiv.BuildConfig
+import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.adapter.SerialsAdapter
+import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
+import ru.androidschool.intensiv.network.MovieApiClient
 
 class TvShowsFragment : Fragment() {
     private var _binding: TvShowsFragmentBinding? = null
@@ -36,14 +43,25 @@ class TvShowsFragment : Fragment() {
         binding.tvShowsRv.layoutManager = LinearLayoutManager(context)
         binding.tvShowsRv.adapter = adapter.apply { addAll(listOf()) }
 
-        val moviesList =
-            MockRepository.getMovies().map {
-                TvShowContainer(
-                    it
-                ) { movie -> }
-            }.toList()
+        val allTV = MovieApiClient.apiClient.getPopularTV(BuildConfig.THE_MOVIE_DATABASE_API, "ru")
+        allTV.enqueue(object : Callback<MovieResponse> {
 
-        binding.tvShowsRv.adapter = adapter.apply { addAll(moviesList) }
+            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
+                Log.e(TAG, error.toString())
+            }
+
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
+
+                val movies = response.body()?.movies
+                movies?.let {
+                    binding.tvShowsRv.adapter = SerialsAdapter(movies, R.layout.serials_item)
+                }
+            }
+        }
+        )
     }
 
     override fun onDestroyView() {
@@ -54,5 +72,7 @@ class TvShowsFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = TvShowsFragment()
+
+        private val TAG = TvShowsFragment::class.java.simpleName
     }
 }

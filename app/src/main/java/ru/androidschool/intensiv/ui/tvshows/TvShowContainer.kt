@@ -15,7 +15,7 @@ class TvShowContainer(
     override fun getLayout(): Int = R.layout.serials_item
 
     override fun bind(view: SerialsItemBinding, position: Int) {
-        view.titleTv.text = content.title
+        view.titleForSerialsTv.text = content.title
         view.ratingBarRb.rating = content.rating
 
         // TODO Получать из модели

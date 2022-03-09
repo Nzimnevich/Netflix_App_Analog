@@ -10,24 +10,25 @@
 
     <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_iv"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_preview"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize30Percent"
-            />
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize30Percent" />
 
 
     <TextView
-            android:id="@+id/title_tv"
+            android:id="@+id/title_for_serials_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/image_iv"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/ratingBar_rb"
             android:layout_marginLeft="36dp"
-            android:text="walking dead"
-            android:textStyle="bold" />
+            android:layout_toLeftOf="@+id/ratingBar_rb"
+            tools:text="walking dead"
+            android:textStyle="bold"
+            tools:textColor="@color/black"
+            android:textColor="@color/white"/>
 
     <RatingBar
             android:id="@+id/ratingBar_rb"
