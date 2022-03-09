@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/serial_item_rl"
+        android:layout_margin="16dp"
+        android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_iv"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_preview"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize30Percent"
+            />
+
+
+    <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_iv"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/ratingBar_rb"
+            android:layout_marginLeft="36dp"
+            android:text="walking dead"
+            android:textStyle="bold" />
+
+    <RatingBar
+            android:id="@+id/ratingBar_rb"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_iv"
+            android:layout_alignParentEnd="true"
+            tools:rating="2.0"
+            tools:stepSize="1.0" />
+</RelativeLayout>
