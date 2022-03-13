@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,16 +78,6 @@
                 android:textColor="@color/white"
                 android:textStyle="italic" />
 
-
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_first_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:src="@drawable/iv_mamoa"-->
-<!--                app:civ_border="false" />-->
         <ImageView
                 android:id="@+id/foto_first_circleV"
                 android:layout_width="60dp"
@@ -96,8 +85,7 @@
                 android:layout_below="@id/desc_tv"
                 android:layout_marginLeft="@dimen/mini_margin"
                 android:layout_marginTop="@dimen/mini_margin"
-                android:src="@drawable/iv_mamoa"
-                 />
+                android:src="@drawable/iv_mamoa" />
 
         <TextView
                 android:id="@+id/first_name_actor_tv"
@@ -108,17 +96,6 @@
                 android:text="@string/name_first_actor"
                 android:textColor="@color/white" />
 
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_second_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="36dp"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:layout_toRightOf="@id/foto_first_circleV"-->
-<!--                android:src="@drawable/iv_amberHeard"-->
-<!--                app:civ_border="false" />-->
-
         <ImageView
                 android:id="@+id/foto_second_circleV"
                 android:layout_width="60dp"
@@ -127,8 +104,7 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="@dimen/mini_margin"
                 android:layout_toRightOf="@id/foto_first_circleV"
-                android:src="@drawable/iv_amber_heard"
-               />
+                android:src="@drawable/iv_amber_heard" />
 
         <TextView
                 android:layout_width="60dp"
@@ -139,16 +115,6 @@
                 android:text="@string/name_second_actor"
                 android:textColor="@color/white" />
 
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_third_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="36dp"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:layout_toRightOf="@id/foto_second_circleV"-->
-<!--                android:src="@drawable/iv_patrikWilson"-->
-<!--                app:civ_border="false" />-->
         <ImageView
                 android:id="@+id/foto_third_circleV"
                 android:layout_width="60dp"
@@ -157,8 +123,7 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="@dimen/mini_margin"
                 android:layout_toRightOf="@id/foto_second_circleV"
-                android:src="@drawable/iv_patrik_wilson"
-                />
+                android:src="@drawable/iv_patrik_wilson" />
 
         <TextView
                 android:layout_width="60dp"
@@ -169,17 +134,6 @@
                 android:text="@string/third_name_actor"
                 android:textColor="@color/white" />
 
-<!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-<!--                android:id="@+id/foto_forth_circleV"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_below="@id/desc_tv"-->
-<!--                android:layout_marginLeft="36dp"-->
-<!--                android:layout_marginTop="@dimen/mini_margin"-->
-<!--                android:layout_toRightOf="@id/foto_third_circleV"-->
-<!--                android:src="@drawable/iv_nicoleKidman"-->
-<!--                app:civ_border="false" />-->
-
         <ImageView
                 android:id="@+id/foto_forth_circleV"
                 android:layout_width="60dp"
@@ -188,8 +142,7 @@
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="@dimen/mini_margin"
                 android:layout_toRightOf="@id/foto_third_circleV"
-                android:src="@drawable/iv_nicole_kidman"
-              />
+                android:src="@drawable/iv_nicole_kidman" />
 
         <TextView
                 android:layout_width="60dp"
@@ -281,8 +234,5 @@
                     android:text="@string/value_year_tv"
                     android:textColor="@color/white" />
         </LinearLayout>
-
-
     </RelativeLayout>
-
 </ScrollView>

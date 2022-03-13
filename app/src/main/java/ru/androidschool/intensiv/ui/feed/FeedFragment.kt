@@ -94,9 +94,47 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                         )
                     )
                 }
-                binding.moviesRecyclerView.adapter = GroupAdapter<GroupieViewHolder>().apply {
+                binding.moviesRecyclerView.adapter = adapter.apply {
                     if (items != null) {
                         addAll(items)
+                    }
+                }
+            }
+        })
+
+        // Популярные
+        val popularsMovies = MovieApiClient.apiClient.getPopularMovies(THE_MOVIE_DATABASE_API, "ru")
+        popularsMovies.enqueue(object : Callback<MovieResponse> {
+
+            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
+                Log.e(TAG, error.toString())
+            }
+
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
+
+                val movies = response.body()?.movies
+
+                var popularItems: List<MainCardContainer>? = null
+                if (movies != null) {
+                    popularItems = listOf(
+                        MainCardContainer(
+                            R.string.popular,
+                            movies.map {
+                                MovieItem(it) { movie ->
+                                    openMovieDetails(
+                                        movie
+                                    )
+                                }
+                            }.toList()
+                        )
+                    )
+                }
+                binding.moviesRecyclerView.adapter = adapter.apply {
+                    if (popularItems != null) {
+                        addAll(popularItems)
                     }
                 }
             }

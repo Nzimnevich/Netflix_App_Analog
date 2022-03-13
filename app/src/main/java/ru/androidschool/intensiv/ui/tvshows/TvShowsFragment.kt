@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -14,10 +15,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.adapter.SerialsAdapter
 import ru.androidschool.intensiv.data.MovieResponse
+import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.network.MovieApiClient
+import ru.androidschool.intensiv.ui.feed.MovieItem
 
 class TvShowsFragment : Fragment() {
     private var _binding: TvShowsFragmentBinding? = null
@@ -56,13 +58,37 @@ class TvShowsFragment : Fragment() {
             ) {
 
                 val movies = response.body()?.movies
-                movies?.let {
-                    binding.tvShowsRv.adapter = SerialsAdapter(movies, R.layout.serials_item)
+
+                var items: List<TvShowContainer>? = null
+
+                if (movies != null) {
+                    items = listOf(
+                        TvShowContainer(
+                            movies.map {
+                                MovieItem(it) { movie ->
+                                    (
+                                        movie
+                                    )
+                                }
+                            }.toList()
+                        )
+                    )
                 }
+
+//                movies?.let {
+                binding.tvShowsRv.adapter = adapter.apply {
+                    if (items != null) {
+                        addAll(items)
+                    }
+                }
+
+                // SerialsAdapter(movies, R.layout.serials_item)
+//                }
             }
         }
         )
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

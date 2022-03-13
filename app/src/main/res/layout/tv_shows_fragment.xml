@@ -8,4 +8,5 @@
         tools:listitem="@layout/serials_item"
         tools:context="ru.androidschool.intensiv.ui.tvshows.TvShowsFragment">
 
+
 </androidx.recyclerview.widget.RecyclerView>
