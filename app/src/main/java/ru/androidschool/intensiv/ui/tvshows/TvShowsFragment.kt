@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -14,14 +13,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.BuildConfig
-import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieResponse
-import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.network.MovieApiClient
-import ru.androidschool.intensiv.ui.feed.MovieItem
 
-class TvShowsFragment : Fragment() {
+class TvShowsFragment() : Fragment() {
     private var _binding: TvShowsFragmentBinding? = null
 
     private val binding get() = _binding!!
@@ -59,36 +55,15 @@ class TvShowsFragment : Fragment() {
 
                 val movies = response.body()?.movies
 
-                var items: List<TvShowContainer>? = null
-
-                if (movies != null) {
-                    items = listOf(
-                        TvShowContainer(
-                            movies.map {
-                                MovieItem(it) { movie ->
-                                    (
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-                }
-
-//                movies?.let {
+                val moviesList = movies?.map { TVItem(it) { movies -> } }?.toList()
                 binding.tvShowsRv.adapter = adapter.apply {
-                    if (items != null) {
-                        addAll(items)
+                    if (moviesList != null) {
+                        addAll(moviesList)
                     }
                 }
-
-                // SerialsAdapter(movies, R.layout.serials_item)
-//                }
             }
-        }
-        )
+        })
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -96,9 +71,6 @@ class TvShowsFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance() = TvShowsFragment()
-
         private val TAG = TvShowsFragment::class.java.simpleName
     }
 }
