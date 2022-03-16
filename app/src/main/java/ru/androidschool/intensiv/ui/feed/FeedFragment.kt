@@ -79,21 +79,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
                 val movies = response.body()?.movies
 
-                var items: List<MainCardContainer>? = null
-                if (movies != null) {
-                    items = listOf(
-                        MainCardContainer(
-                            R.string.recommended,
-                            movies.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-                }
+                var items = movies?.let { getMovieForUI(it, R.string.recommended) }
                 binding.moviesRecyclerView.adapter = adapter.apply {
                     if (items != null) {
                         addAll(items)
@@ -117,21 +103,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
                 val movies = response.body()?.movies
 
-                var popularItems: List<MainCardContainer>? = null
-                if (movies != null) {
-                    popularItems = listOf(
-                        MainCardContainer(
-                            R.string.popular,
-                            movies.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-                }
+                var popularItems = movies?.let { getMovieForUI(it, R.string.popular) }
                 binding.moviesRecyclerView.adapter = adapter.apply {
                     if (popularItems != null) {
                         addAll(popularItems)
@@ -139,6 +111,22 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 }
             }
         })
+    }
+
+    fun getMovieForUI(movies: List<MyMovie>, intResourses: Int): List<MainCardContainer> {
+        var items: List<MainCardContainer> = listOf(
+            MainCardContainer(
+                intResourses,
+                movies.map {
+                    MovieItem(it) { movie ->
+                        openMovieDetails(
+                            movie
+                        )
+                    }
+                }.toList()
+            )
+        )
+        return items
     }
 
     private fun openMovieDetails(movie: MyMovie) {

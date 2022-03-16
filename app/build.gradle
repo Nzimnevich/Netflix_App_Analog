@@ -20,9 +20,25 @@ android {
         buildConfigField 'String', 'THE_MOVIE_DATABASE_API', keystoreProperties['THE_MOVIE_DATABASE_API']
     }
     buildTypes {
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\$field\""
+        }
+        staging {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\$field\""
+
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\$field\""
         }
     }
 
@@ -77,10 +93,10 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     //Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.interceptorVersion"
 
     //Test
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.0.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$rootProject.junitVersion")
 }
