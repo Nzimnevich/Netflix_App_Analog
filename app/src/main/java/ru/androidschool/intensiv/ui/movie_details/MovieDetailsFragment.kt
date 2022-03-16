@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.CropSquareTransformation
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.MovieDetailsFragmentBinding
+import ru.androidschool.intensiv.network.MovieApiClient
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     private var _binding: MovieDetailsFragmentBinding? = null
@@ -34,22 +35,24 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         super.onViewCreated(view, savedInstanceState)
         Picasso.get()
             .load(R.drawable.iv_mamoa)
-            .transform(CropSquareTransformation())
+            .transform(CropCircleTransformation())
             .into(fotoFirstIV)
 
         Picasso.get()
             .load(R.drawable.iv_amber_heard)
-            .transform(CropSquareTransformation())
+            .transform(CropCircleTransformation())
             .into(fotoSecondIV)
 
         Picasso.get()
             .load(R.drawable.iv_patrik_wilson)
-            .transform(CropSquareTransformation())
+            .transform(CropCircleTransformation())
             .into(fotoThirdIV)
 
         Picasso.get()
             .load(R.drawable.iv_nicole_kidman)
-            .transform(CropSquareTransformation())
+            .transform(CropCircleTransformation())
             .into(fotoForthIV)
+
+        val allActors = MovieApiClient.apiClient.getMoviesDetails()
     }
 }

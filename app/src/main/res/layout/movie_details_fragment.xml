@@ -10,6 +10,12 @@
             android:background="@color/blueDark">
 
         <ImageView
+                android:id="@+id/image_movie_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iv_aquamen" />
+
+        <ImageView
                 android:id="@+id/arrow_back_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -17,12 +23,6 @@
                 android:layout_marginTop="@dimen/material_margin_normal"
                 android:src="@drawable/ic_arrow_back"
                 tools:ignore="ContentDescription" />
-
-        <ImageView
-                android:id="@+id/image_movie_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/iv_aquamen" />
 
         <TextView
                 android:id="@+id/title_movie_iv"

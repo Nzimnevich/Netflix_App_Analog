@@ -47,10 +47,11 @@ interface MovieApiInterface {
     /**
      *  return информацию о фильме
      */
-    @GET("movie/{movie_id}")
+    @GET("movie")
     fun getMoviesDetails(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
-        @Query("language") language: String = "ru"
+        @Query("language") language: String = "ru",
+        @Query("movie_id") movie_id: Int = 11
     ): Call<MovieResponse>
 
     /**
@@ -59,6 +60,7 @@ interface MovieApiInterface {
     @GET("movie/{movie_id}/credits")
     fun getMoviesCrewDetails(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
-        @Query("language") language: String = "ru"
+        @Query("language") language: String = "ru",
+        @Query("movie_id") movie_id: Int = 11
     ): Call<MovieResponse>
 }

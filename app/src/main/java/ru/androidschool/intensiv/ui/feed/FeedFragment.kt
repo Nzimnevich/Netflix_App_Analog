@@ -64,7 +64,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
         }
 
-        val allMovies = MovieApiClient.apiClient.getAllMovies(THE_MOVIE_DATABASE_API, "ru")
+        val allMovies = MovieApiClient.apiClient.getAllMovies()
 
         allMovies.enqueue(object : Callback<MovieResponse> {
 
@@ -89,7 +89,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         })
 
         // Популярные
-        val popularsMovies = MovieApiClient.apiClient.getPopularMovies(THE_MOVIE_DATABASE_API, "ru")
+        val popularsMovies = MovieApiClient.apiClient.getPopularMovies()
         popularsMovies.enqueue(object : Callback<MovieResponse> {
 
             override fun onFailure(call: Call<MovieResponse>, error: Throwable) {

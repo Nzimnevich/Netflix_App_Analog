@@ -1,8 +1,6 @@
 package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
-import ru.androidschool.intensiv.BuildConfig
-
 
 data class MyMovie(
     @SerializedName(value = "original_title", alternate = ["name"])
