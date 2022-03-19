@@ -11,7 +11,6 @@ import com.xwray.groupie.GroupieViewHolder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.androidschool.intensiv.BuildConfig.THE_MOVIE_DATABASE_API
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.data.MyMovie
@@ -144,6 +143,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     override fun onStop() {
         super.onStop()
         searchBinding.searchToolbar.clear()
+        adapter.clear()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

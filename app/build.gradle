@@ -99,4 +99,6 @@ dependencies {
 
     //Test
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$rootProject.junitVersion")
+
+    implementation group: 'androidx.test.espresso', name: 'espresso-core', version: '3.4.0'
 }

@@ -85,7 +85,8 @@
                 android:layout_below="@id/desc_tv"
                 android:layout_marginLeft="@dimen/mini_margin"
                 android:layout_marginTop="@dimen/mini_margin"
-                android:src="@drawable/iv_mamoa" />
+                tools:src="@drawable/iv_mamoa"
+                />
 
         <TextView
                 android:id="@+id/first_name_actor_tv"
