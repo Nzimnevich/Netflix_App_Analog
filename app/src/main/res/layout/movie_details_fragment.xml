@@ -103,86 +103,86 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-<!--        <LinearLayout-->
-<!--                android:id="@+id/info_ll"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_below="@+id/horizontal_sv"-->
-<!--                android:orientation="vertical">-->
+        <LinearLayout
+                android:id="@+id/info_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/horizontal_sv"
+                android:orientation="vertical">
 
-<!--            <TextView-->
-<!--                    android:id="@+id/company_tv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@+id/ll_for_rv"-->
-<!--                    android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:text="@string/studio_tv"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textStyle="bold" />-->
+            <TextView
+                    android:id="@+id/company_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_for_rv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/studio_tv"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
-<!--            <TextView-->
-<!--                    android:id="@+id/genre_tv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/company_tv"-->
-<!--                    android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:text="@string/genre_tv"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textStyle="bold" />-->
+            <TextView
+                    android:id="@+id/genre_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/company_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/genre_tv"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
-<!--            <TextView-->
-<!--                    android:id="@+id/year_tv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/genre_tv"-->
-<!--                    android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:text="@string/year_tv"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textStyle="bold" />-->
-<!--        </LinearLayout>-->
+            <TextView
+                    android:id="@+id/year_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/genre_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/year_tv"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+        </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--               android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                android:layout_toRightOf="@id/info_ll"-->
-<!--                android:orientation="vertical">-->
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/mini_margin"
+                android:layout_toRightOf="@id/info_ll"
+                android:orientation="vertical">
 
-<!--            <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/first_name_actor_tv"-->
-<!--                    android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_toRightOf="@id/company_tv"-->
-<!--                    android:text="@string/name_studio_tv"-->
-<!--                    android:textColor="@color/white" />-->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/first_name_actor_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/company_tv"
+                    android:text="@string/name_studio_tv"
+                    android:textColor="@color/white" />
 
-<!--            <TextView-->
-<!--                    android:id="@+id/value_genre_tv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/company_tv"-->
-<!--                    android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_toRightOf="@id/company_tv"-->
-<!--                    android:text="@string/value_genre_tv"-->
-<!--                    android:textColor="@color/white" />-->
+            <TextView
+                    android:id="@+id/value_genre_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/company_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/company_tv"
+                    android:text="@string/value_genre_tv"
+                    android:textColor="@color/white" />
 
-<!--            <TextView-->
-<!--                    android:id="@+id/value_year_tv"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/value_genre_tv"-->
-<!--                    android:layout_marginLeft="@dimen/mini_margin"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_toRightOf="@id/year_tv"-->
-<!--                    android:text="@string/value_year_tv"-->
-<!--                    android:textColor="@color/white" />-->
-<!--        </LinearLayout>-->
+            <TextView
+                    android:id="@+id/value_year_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/value_genre_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/year_tv"
+                    android:text="@string/value_year_tv"
+                    android:textColor="@color/white" />
+        </LinearLayout>
     </RelativeLayout>
 </ScrollView>
