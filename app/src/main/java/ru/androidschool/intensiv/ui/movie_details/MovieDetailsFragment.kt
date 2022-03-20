@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -42,7 +43,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.actorsRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.actorsRecyclerView.layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
         binding.actorsRecyclerView.adapter = adapter.apply { addAll(listOf()) }
 
         val actorList =
