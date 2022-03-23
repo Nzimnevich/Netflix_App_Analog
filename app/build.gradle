@@ -20,9 +20,25 @@ android {
         buildConfigField 'String', 'THE_MOVIE_DATABASE_API', keystoreProperties['THE_MOVIE_DATABASE_API']
     }
     buildTypes {
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\""
+        }
+        staging {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\""
+
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\""
         }
     }
 
@@ -77,12 +93,12 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     //Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.interceptorVersion"
 
     //Test
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$rootProject.junitVersion")
 
     //RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'

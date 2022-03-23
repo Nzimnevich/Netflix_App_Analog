@@ -12,7 +12,6 @@ import com.xwray.groupie.GroupieViewHolder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.network.MovieApiClient
@@ -41,7 +40,7 @@ class TvShowsFragment() : Fragment() {
         binding.tvShowsRv.layoutManager = LinearLayoutManager(context)
         binding.tvShowsRv.adapter = adapter.apply { addAll(listOf()) }
 
-        val allTV = MovieApiClient.apiClient.getPopularTV(BuildConfig.THE_MOVIE_DATABASE_API, "ru")
+        val allTV = MovieApiClient.apiClient.getPopularTV()
         allTV.enqueue(object : Callback<MovieResponse> {
 
             override fun onFailure(call: Call<MovieResponse>, error: Throwable) {

@@ -10,6 +10,12 @@
             android:background="@color/blueDark">
 
         <ImageView
+                android:id="@+id/image_movie_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iv_aquamen" />
+
+        <ImageView
                 android:id="@+id/arrow_back_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -17,12 +23,6 @@
                 android:layout_marginTop="@dimen/material_margin_normal"
                 android:src="@drawable/ic_arrow_back"
                 tools:ignore="ContentDescription" />
-
-        <ImageView
-                android:id="@+id/image_movie_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/iv_aquamen" />
 
         <TextView
                 android:id="@+id/title_movie_iv"
@@ -78,93 +78,43 @@
                 android:textColor="@color/white"
                 android:textStyle="italic" />
 
-        <ImageView
-                android:id="@+id/foto_first_circleV"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_below="@id/desc_tv"
-                android:layout_marginLeft="@dimen/mini_margin"
-                android:layout_marginTop="@dimen/mini_margin"
-                android:src="@drawable/iv_mamoa" />
-
-        <TextView
-                android:id="@+id/first_name_actor_tv"
-                android:layout_width="60dp"
+        <HorizontalScrollView
+                android:id="@+id/horizontal_sv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/foto_first_circleV"
-                android:layout_marginLeft="20dp"
-                android:text="@string/name_first_actor"
-                android:textColor="@color/white" />
+                android:layout_below="@+id/desc_tv">
 
-        <ImageView
-                android:id="@+id/foto_second_circleV"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_below="@id/desc_tv"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="@dimen/mini_margin"
-                android:layout_toRightOf="@id/foto_first_circleV"
-                android:src="@drawable/iv_amber_heard" />
+            <LinearLayout
 
-        <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/foto_second_circleV"
-                android:layout_marginLeft="46dp"
-                android:layout_toRightOf="@id/foto_first_circleV"
-                android:text="@string/name_second_actor"
-                android:textColor="@color/white" />
+                    android:id="@+id/ll_for_rv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
 
-        <ImageView
-                android:id="@+id/foto_third_circleV"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_below="@id/desc_tv"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="@dimen/mini_margin"
-                android:layout_toRightOf="@id/foto_second_circleV"
-                android:src="@drawable/iv_patrik_wilson" />
+                    >
 
-        <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/foto_third_circleV"
-                android:layout_marginLeft="46dp"
-                android:layout_toRightOf="@id/foto_second_circleV"
-                android:text="@string/third_name_actor"
-                android:textColor="@color/white" />
-
-        <ImageView
-                android:id="@+id/foto_forth_circleV"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_below="@id/desc_tv"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="@dimen/mini_margin"
-                android:layout_toRightOf="@id/foto_third_circleV"
-                android:src="@drawable/iv_nicole_kidman" />
-
-        <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/foto_forth_circleV"
-                android:layout_marginLeft="46dp"
-                android:layout_toRightOf="@id/foto_third_circleV"
-                android:text="@string/forth_name_actor"
-                android:textColor="@color/white" />
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/actors_recycler_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/blueDark"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
                 android:id="@+id/info_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/first_name_actor_tv"
+                android:layout_below="@+id/horizontal_sv"
                 android:orientation="vertical">
 
             <TextView
                     android:id="@+id/company_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/first_name_actor_tv"
+                    android:layout_below="@+id/ll_for_rv"
                     android:layout_marginLeft="@dimen/mini_margin"
                     android:layout_marginTop="10dp"
                     android:text="@string/studio_tv"
@@ -197,7 +147,7 @@
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/first_name_actor_tv"
+               android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/mini_margin"
                 android:layout_toRightOf="@id/info_ll"
                 android:orientation="vertical">

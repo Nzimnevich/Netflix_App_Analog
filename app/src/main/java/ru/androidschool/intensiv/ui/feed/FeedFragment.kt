@@ -11,7 +11,6 @@ import com.xwray.groupie.GroupieViewHolder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.androidschool.intensiv.BuildConfig.THE_MOVIE_DATABASE_API
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.data.MyMovie
@@ -64,7 +63,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
         }
 
-        val allMovies = MovieApiClient.apiClient.getAllMovies(THE_MOVIE_DATABASE_API, "ru")
+        val allMovies = MovieApiClient.apiClient.getAllMovies()
 
         allMovies.enqueue(object : Callback<MovieResponse> {
 
@@ -79,21 +78,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
                 val movies = response.body()?.movies
 
-                var items: List<MainCardContainer>? = null
-                if (movies != null) {
-                    items = listOf(
-                        MainCardContainer(
-                            R.string.recommended,
-                            movies.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-                }
+                var items = movies?.let { getMovieForUI(it, R.string.recommended) }
                 binding.moviesRecyclerView.adapter = adapter.apply {
                     if (items != null) {
                         addAll(items)
@@ -103,7 +88,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         })
 
         // Популярные
-        val popularsMovies = MovieApiClient.apiClient.getPopularMovies(THE_MOVIE_DATABASE_API, "ru")
+        val popularsMovies = MovieApiClient.apiClient.getPopularMovies()
         popularsMovies.enqueue(object : Callback<MovieResponse> {
 
             override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
@@ -117,21 +102,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
                 val movies = response.body()?.movies
 
-                var popularItems: List<MainCardContainer>? = null
-                if (movies != null) {
-                    popularItems = listOf(
-                        MainCardContainer(
-                            R.string.popular,
-                            movies.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-                }
+                var popularItems = movies?.let { getMovieForUI(it, R.string.popular) }
                 binding.moviesRecyclerView.adapter = adapter.apply {
                     if (popularItems != null) {
                         addAll(popularItems)
@@ -139,6 +110,22 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 }
             }
         })
+    }
+
+    fun getMovieForUI(movies: List<MyMovie>, intResourses: Int): List<MainCardContainer> {
+        var items: List<MainCardContainer> = listOf(
+            MainCardContainer(
+                intResourses,
+                movies.map {
+                    MovieItem(it) { movie ->
+                        openMovieDetails(
+                            movie
+                        )
+                    }
+                }.toList()
+            )
+        )
+        return items
     }
 
     private fun openMovieDetails(movie: MyMovie) {
@@ -156,6 +143,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     override fun onStop() {
         super.onStop()
         searchBinding.searchToolbar.clear()
+        adapter.clear()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

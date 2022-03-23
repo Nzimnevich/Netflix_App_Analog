@@ -2,7 +2,10 @@ package ru.androidschool.intensiv.network
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.androidschool.intensiv.BuildConfig
+import ru.androidschool.intensiv.data.CastResponse
 import ru.androidschool.intensiv.data.MovieResponse
 
 interface MovieApiInterface {
@@ -11,35 +14,55 @@ interface MovieApiInterface {
      * return список фильмов
      */
     @GET("movie/now_playing")
-    fun getAllMovies(@Query("api_key") apiKey: String, @Query("language") language: String): Call<MovieResponse>
+    fun getAllMovies(
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru"
+    ): Call<MovieResponse>
 
     /**
      *  return список новых фильмов
      */
     @GET("movie/upcoming")
-    fun getAllNovelties(@Query("api_key") apiKey: String, @Query("language") language: String): Call<MovieResponse>
+    fun getAllNovelties(
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru"
+    ): Call<MovieResponse>
 
     /**
      *  return список популярных фильмов
      */
     @GET("movie/popular")
-    fun getPopularMovies(@Query("api_key") apiKey: String, @Query("language") language: String): Call<MovieResponse>
+    fun getPopularMovies(
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru"
+    ): Call<MovieResponse>
 
     /**
      * return список популярных сериалов
      */
     @GET("tv/popular")
-    fun getPopularTV(@Query("api_key") apiKey: String, @Query("language") language: String): Call<MovieResponse>
+    fun getPopularTV(
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru"
+    ): Call<MovieResponse>
 
     /**
      *  return информацию о фильме
      */
     @GET("movie/{movie_id}")
-    fun getMoviesDetails(@Query("api_key") apiKey: String, @Query("language") language: String): Call<MovieResponse>
+    fun getMoviesDetails(
+        @Path("movie_id") movie_id: Int = 11,
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru"
+    ): Call<CastResponse>
 
     /**
      * return информацию об актерском составе
      */
     @GET("movie/{movie_id}/credits")
-    fun getMoviesCrewDetails(@Query("api_key") apiKey: String, @Query("language") language: String): Call<MovieResponse>
+    fun getMoviesCrewDetails(
+        @Path("movie_id") movie_id: Int = 11,
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru"
+    ): Call<CastResponse>
 }
