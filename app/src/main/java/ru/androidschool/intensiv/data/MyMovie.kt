@@ -11,7 +11,7 @@ data class MyMovie(
     @SerializedName("release_date")
     var data: String?,
     @SerializedName("vote_average")
-    var rating: Float?
+    var rating: Float
 ) {
     @SerializedName("poster_path")
     var image: String? = null

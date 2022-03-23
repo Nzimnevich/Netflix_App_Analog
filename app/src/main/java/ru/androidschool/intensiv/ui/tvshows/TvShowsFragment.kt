@@ -12,7 +12,6 @@ import com.xwray.groupie.GroupieViewHolder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.network.MovieApiClient

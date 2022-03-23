@@ -16,7 +16,8 @@ class TVItem(
 
     override fun bind(view: SerialsItemBinding, position: Int) {
         view.titleForSerialsTv.text = content.title
-        view.ratingBarRb.rating = content.rating!!
+        view.ratingBarRb.rating = content.let { it.rating }
+
         view.serialItemRl.setOnClickListener {
             onClick.invoke(content)
         }
