@@ -1,6 +1,7 @@
 package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
+import ru.androidschool.intensiv.BuildConfig
 
 data class MyMovie(
     @SerializedName(value = "original_title", alternate = ["name"])
@@ -14,5 +15,5 @@ data class MyMovie(
 ) {
     @SerializedName("poster_path")
     var image: String? = null
-        get() = "https://image.tmdb.org/t/p/w500$field"
+        get() = "${BuildConfig.POSTER_PATH}$field"
 }
