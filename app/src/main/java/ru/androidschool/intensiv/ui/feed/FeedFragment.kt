@@ -8,11 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
@@ -65,51 +63,69 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
         val allMovies = MovieApiClient.apiClient.getAllMovies()
 
-        allMovies.enqueue(object : Callback<MovieResponse> {
-
-            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
+        allMovies
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { it ->
+                    val movies = it.movies
+                    // Передаем результат в adapter и отображаем элементы
+                    var items = movies?.let { getMovieForUI(it, R.string.recommended) }
+                    binding.moviesRecyclerView.adapter = adapter.apply {
+                        if (items != null) {
+                            addAll(items)
+                        }
+                    }
+                }, { error ->
+                // Логируем ошибку
                 Log.e(TAG, error.toString())
             }
+            )
 
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                response: Response<MovieResponse>
-            ) {
-
-                val movies = response.body()?.movies
-
-                var items = movies?.let { getMovieForUI(it, R.string.recommended) }
-                binding.moviesRecyclerView.adapter = adapter.apply {
-                    if (items != null) {
-                        addAll(items)
-                    }
-                }
-            }
-        })
+//        allMovies.enqueue(object : Callback<MovieResponse> {
+//
+//            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
+//                Log.e(TAG, error.toString())
+//            }
+//
+//            override fun onResponse(
+//                call: Call<MovieResponse>,
+//                response: Response<MovieResponse>
+//            ) {
+//
+//                val movies = response.body()?.movies
+//
+//                var items = movies?.let { getMovieForUI(it, R.string.recommended) }
+//                binding.moviesRecyclerView.adapter = adapter.apply {
+//                    if (items != null) {
+//                        addAll(items)
+//                    }
+//                }
+//            }
+//        })
 
         // Популярные
         val popularsMovies = MovieApiClient.apiClient.getPopularMovies()
-        popularsMovies.enqueue(object : Callback<MovieResponse> {
 
-            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
+        popularsMovies
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { it ->
+                    val movies = it.movies
+                    // Передаем результат в adapter и отображаем элементы
+                    var items = movies?.let { getMovieForUI(it, R.string.popular) }
+                    binding.moviesRecyclerView.adapter = adapter.apply {
+                        if (items != null) {
+                            addAll(items)
+                        }
+                    }
+                }, { error ->
+                // Логируем ошибку
                 Log.e(TAG, error.toString())
             }
 
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                response: Response<MovieResponse>
-            ) {
-
-                val movies = response.body()?.movies
-
-                var popularItems = movies?.let { getMovieForUI(it, R.string.popular) }
-                binding.moviesRecyclerView.adapter = adapter.apply {
-                    if (popularItems != null) {
-                        addAll(popularItems)
-                    }
-                }
-            }
-        })
+            )
     }
 
     fun getMovieForUI(movies: List<MyMovie>, intResourses: Int): List<MainCardContainer> {

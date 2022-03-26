@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.disposables.Disposable
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.SearchToolbarBinding
 
@@ -30,7 +34,17 @@ class SearchBar @JvmOverloads constructor(
         }
     }
 
-    fun setText(text: String?) {
+    val onTextChangedObservable by lazy {
+        Observable.create(
+            ObservableOnSubscribe<String> { subscriber ->
+                binding.searchEditText.doAfterTextChanged { text ->
+                    subscriber.onNext(text.toString())
+                }
+            }
+        )
+    }
+
+    fun setText(text: String) {
         binding.searchEditText.setText(text)
     }
 
@@ -58,5 +72,4 @@ class SearchBar @JvmOverloads constructor(
             }
         }
     }
-
 }
