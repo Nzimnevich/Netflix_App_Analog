@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.network.MovieApiClient
@@ -22,6 +24,7 @@ class TvShowsFragment() : Fragment() {
     private val adapter by lazy {
         GroupAdapter<GroupieViewHolder>()
     }
+    val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +43,7 @@ class TvShowsFragment() : Fragment() {
 
         val allTV = MovieApiClient.apiClient.getPopularTV()
 
-        allTV
+        val disposable: Disposable = allTV
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -57,6 +60,8 @@ class TvShowsFragment() : Fragment() {
                 Log.e(TAG, error.toString())
             }
             )
+
+        compositeDisposable.add(disposable)
 
 //        allTV.enqueue(object : Callback<MovieResponse> {
 //
@@ -84,6 +89,7 @@ class TvShowsFragment() : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        compositeDisposable.dispose()
     }
 
     companion object {

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Transformations.map
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
@@ -26,6 +28,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     // onDestroyView.
     private val binding get() = _binding!!
     private val searchBinding get() = _searchBinding!!
+    val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +46,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val searchTerm = requireArguments().getString(KEY_SEARCH)
 //        searchBinding.searchToolbar.setText(searchTerm)
 
-        var result = searchBinding.searchToolbar.onTextChangedObservable
+        val disposable: Disposable = searchBinding.searchToolbar.onTextChangedObservable
+            .subscribeOn(Schedulers.io())
             .map { it.trim() }
             .filter { it> 3.toString() }
             .debounce(500, TimeUnit.MILLISECONDS)
-            .observeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it
@@ -56,13 +59,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 Log.e(TAG, it.toString())
             })
 
-        searchBinding.searchToolbar.setText(result.toString())
+        searchBinding.searchToolbar.setText(disposable.toString())
+        compositeDisposable.add(disposable)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         _searchBinding = null
+        compositeDisposable.dispose()
     }
 
     companion object {
