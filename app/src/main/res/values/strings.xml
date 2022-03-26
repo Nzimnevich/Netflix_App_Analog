@@ -26,4 +26,17 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="placeholder">Пёс Киноман</string>
+    <string name="title_aquamen_tv">Aquamen</string>
+    <string name="title_watch_btn">Смотреть</string>
+    <string name="desc_cinema_tv">In 1985 Maine, lighthouse keeper Thomas Curry rescues Atlanna, the queen of the underwater kingdom of Atlantis, during a storm. They fall in love and have a son named Arthur, who has the power to communicate with sea creatures.</string>
+    <string name="name_first_actor">Jason Mamoa</string>
+    <string name="name_second_actor">Amber Heard</string>
+    <string name="forth_name_actor">Nicole Kidman</string>
+    <string name="third_name_actor">Patrik Wilson</string>
+    <string name="studio_tv">Студия</string>
+    <string name="genre_tv">Жанр</string>
+    <string name="year_tv">Год</string>
+    <string name="name_studio_tv">Warner Bros</string>
+    <string name="value_genre_tv">Action, Adventure, Fantasy</string>
+    <string name="value_year_tv">2018</string>
 </resources>

@@ -1,12 +1,188 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ru.androidschool.intensiv.ui.movie_details.MovieDetailsFragment">
-
-    <TextView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context="ru.androidschool.intensiv.ui.movie_details.MovieDetailsFragment">
 
-</FrameLayout>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blueDark">
+
+        <ImageView
+                android:id="@+id/image_movie_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iv_aquamen" />
+
+        <ImageView
+                android:id="@+id/arrow_back_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin_small"
+                android:layout_marginTop="@dimen/material_margin_normal"
+                android:src="@drawable/ic_arrow_back"
+                tools:ignore="ContentDescription" />
+
+        <TextView
+                android:id="@+id/title_movie_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_movie_iv"
+                android:layout_marginLeft="@dimen/mini_margin"
+                android:layout_marginTop="@dimen/mini_margin"
+                android:text="@string/title_aquamen_tv"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_movie_iv"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/mini_margin"
+                android:layout_marginRight="@dimen/mini_margin"
+                android:button="@drawable/selector_favorite" />
+
+        <Button
+                android:id="@+id/watch_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_movie_iv"
+                android:layout_marginLeft="@dimen/mini_margin"
+                android:text="@string/title_watch_btn"
+                android:textColor="@color/white" />
+
+        <RatingBar
+                android:id="@+id/ratingBar_rb"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_movie_iv"
+                android:layout_marginLeft="190dp"
+                android:layout_marginRight="3dp"
+                android:layout_toRightOf="@id/watch_btn"
+                tools:rating="4.5"
+                tools:stepSize="0.5" />
+
+        <TextView
+                android:id="@+id/desc_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/watch_btn"
+                android:layout_marginLeft="@dimen/mini_margin"
+                android:layout_marginTop="@dimen/mini_margin"
+                android:layout_marginRight="@dimen/mini_margin"
+                android:text="@string/desc_cinema_tv"
+                android:textColor="@color/white"
+                android:textStyle="italic" />
+
+        <HorizontalScrollView
+                android:id="@+id/horizontal_sv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/desc_tv">
+
+            <LinearLayout
+
+                    android:id="@+id/ll_for_rv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+
+                    >
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/actors_recycler_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/blueDark"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+                android:id="@+id/info_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/horizontal_sv"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/company_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_for_rv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/studio_tv"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/genre_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/company_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/genre_tv"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/year_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/genre_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/year_tv"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/mini_margin"
+                android:layout_toRightOf="@id/info_ll"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/first_name_actor_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/company_tv"
+                    android:text="@string/name_studio_tv"
+                    android:textColor="@color/white" />
+
+            <TextView
+                    android:id="@+id/value_genre_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/company_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/company_tv"
+                    android:text="@string/value_genre_tv"
+                    android:textColor="@color/white" />
+
+            <TextView
+                    android:id="@+id/value_year_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/value_genre_tv"
+                    android:layout_marginLeft="@dimen/mini_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/year_tv"
+                    android:text="@string/value_year_tv"
+                    android:textColor="@color/white" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
