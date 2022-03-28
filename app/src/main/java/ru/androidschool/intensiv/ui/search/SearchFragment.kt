@@ -1,7 +1,6 @@
 package ru.androidschool.intensiv.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     // onDestroyView.
     private val binding get() = _binding!!
     private val searchBinding get() = _searchBinding!!
-    val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,17 +48,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val disposable: Disposable = searchBinding.searchToolbar.onTextChangedObservable
             .subscribeOn(Schedulers.io())
             .map { it.trim() }
-            .filter { it> 3.toString() }
             .debounce(500, TimeUnit.MILLISECONDS)
+//            .filter { it > 3.toString() }
+//            .filter { it.isNotEmpty() }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                it
+                searchBinding.searchToolbar.setText(it.toString())
                 Timber.d(it.toString())
             }, {
-                Log.e(TAG, it.toString())
+                Timber.e(it.toString())
             })
 
-        searchBinding.searchToolbar.setText(disposable.toString())
         compositeDisposable.add(disposable)
     }
 

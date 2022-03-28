@@ -1,7 +1,6 @@
 package ru.androidschool.intensiv.ui.tvshows
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.network.MovieApiClient
+import timber.log.Timber
 
 class TvShowsFragment() : Fragment() {
     private var _binding: TvShowsFragmentBinding? = null
@@ -56,34 +56,11 @@ class TvShowsFragment() : Fragment() {
                         }
                     }
                 }, { error ->
-                // Логируем ошибку
-                Log.e(TAG, error.toString())
+                Timber.e(error.toString())
             }
             )
 
         compositeDisposable.add(disposable)
-
-//        allTV.enqueue(object : Callback<MovieResponse> {
-//
-//            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
-//                Log.e(TAG, error.toString())
-//            }
-//
-//            override fun onResponse(
-//                call: Call<MovieResponse>,
-//                response: Response<MovieResponse>
-//            ) {
-//
-//                val movies = response.body()?.movies
-//
-//                val moviesList = movies?.map { TVItem(it) { movies -> } }?.toList()
-//                binding.tvShowsRv.adapter = adapter.apply {
-//                    if (moviesList != null) {
-//                        addAll(moviesList)
-//                    }
-//                }
-//            }
-//        })
     }
 
     override fun onDestroyView() {

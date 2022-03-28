@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.disposables.Disposable
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.SearchToolbarBinding
 

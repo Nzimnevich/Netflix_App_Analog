@@ -9,6 +9,8 @@ import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MyMovie
@@ -22,6 +24,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     private var _binding: FeedFragmentBinding? = null
     private var _searchBinding: FeedHeaderBinding? = null
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -63,13 +66,12 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
         val allMovies = MovieApiClient.apiClient.getAllMovies()
 
-        allMovies
+        val disposable = allMovies
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { it ->
                     val movies = it.movies
-                    // Передаем результат в adapter и отображаем элементы
                     var items = movies?.let { getMovieForUI(it, R.string.recommended) }
                     binding.moviesRecyclerView.adapter = adapter.apply {
                         if (items != null) {
@@ -77,37 +79,17 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                         }
                     }
                 }, { error ->
-                // Логируем ошибку
-                Log.e(TAG, error.toString())
+                Timber.e(error.toString())
             }
             )
 
-//        allMovies.enqueue(object : Callback<MovieResponse> {
-//
-//            override fun onFailure(call: Call<MovieResponse>, error: Throwable) {
-//                Log.e(TAG, error.toString())
-//            }
-//
-//            override fun onResponse(
-//                call: Call<MovieResponse>,
-//                response: Response<MovieResponse>
-//            ) {
-//
-//                val movies = response.body()?.movies
-//
-//                var items = movies?.let { getMovieForUI(it, R.string.recommended) }
-//                binding.moviesRecyclerView.adapter = adapter.apply {
-//                    if (items != null) {
-//                        addAll(items)
-//                    }
-//                }
-//            }
-//        })
+        compositeDisposable.add(disposable)
+
 
         // Популярные
         val popularsMovies = MovieApiClient.apiClient.getPopularMovies()
 
-        popularsMovies
+        val popularMoviesDisposable: Disposable =  popularsMovies
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -121,11 +103,11 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                         }
                     }
                 }, { error ->
-                // Логируем ошибку
-                Log.e(TAG, error.toString())
-            }
+                    Timber.e(error.toString())
+                }
 
             )
+        compositeDisposable.add(popularMoviesDisposable)
     }
 
     fun getMovieForUI(movies: List<MyMovie>, intResourses: Int): List<MainCardContainer> {
@@ -170,6 +152,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         super.onDestroyView()
         _binding = null
         _searchBinding = null
+        compositeDisposable.dispose()
     }
 
     companion object {
