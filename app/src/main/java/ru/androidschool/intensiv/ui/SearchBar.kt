@@ -9,8 +9,10 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
+import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.SearchToolbarBinding
+import java.util.concurrent.TimeUnit
 
 class SearchBar @JvmOverloads constructor(
     context: Context,
@@ -41,6 +43,14 @@ class SearchBar @JvmOverloads constructor(
                 }
             }
         )
+    }
+
+    val onTextChangedWithOperatorObservable by lazy {
+        onTextChangedObservable
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .map { it.trim() }
+            .filter { it.length > 3 }
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     fun setText(text: String) {

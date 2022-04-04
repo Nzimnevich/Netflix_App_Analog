@@ -5,18 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Transformations.map
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
 import ru.androidschool.intensiv.databinding.FragmentSearchBinding
+import ru.androidschool.intensiv.extensions.extensionsForObservable
+import ru.androidschool.intensiv.network.MovieApiClient
+import ru.androidschool.intensiv.ui.feed.FeedFragment
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
+import ru.androidschool.intensiv.ui.feed.MainCardContainer
+import ru.androidschool.intensiv.ui.feed.MovieItem
 import ru.androidschool.intensiv.ui.tvshows.TvShowsFragment
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
@@ -28,6 +34,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding get() = _binding!!
     private val searchBinding get() = _searchBinding!!
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val options = navOptions {
+        anim {
+            enter = R.anim.slide_in_right
+            exit = R.anim.slide_out_left
+            popEnter = R.anim.slide_in_left
+            popExit = R.anim.slide_out_right
+        }
+    }
+    private val adapter by lazy {
+        GroupAdapter<GroupieViewHolder>()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,23 +60,59 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val searchTerm = requireArguments().getString(KEY_SEARCH)
-//        searchBinding.searchToolbar.setText(searchTerm)
+        if (searchTerm != null) {
+            searchBinding.searchToolbar.setText(searchTerm)
+        }
 
-        val disposable: Disposable = searchBinding.searchToolbar.onTextChangedObservable
-            .subscribeOn(Schedulers.io())
-            .map { it.trim() }
-            .debounce(500, TimeUnit.MILLISECONDS)
-//            .filter { it > 3.toString() }
-//            .filter { it.isNotEmpty() }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                searchBinding.searchToolbar.setText(it.toString())
-                Timber.d(it.toString())
-            }, {
-                Timber.e(it.toString())
-            })
+        val disposable: Disposable =
+            searchBinding.searchToolbar.onTextChangedWithOperatorObservable.subscribe(
+                {
+                    val popularsMovies = MovieApiClient.apiClient.getSearchMovies(query = it)
+                    val disposable1: Disposable =
+                        popularsMovies.extensionsForObservable().subscribe({
+                            val movies = it.movies
+                            val items = movies?.let { getMovieForUI(it, R.string.we_find) }
+                            binding.actorsRecyclerView.adapter = adapter.apply {
+                                if (items != null) {
+                                    addAll(items)
+                                }
+                            }
+                        }
+                        ) { error ->
+                            Timber.e(error.toString())
+                        }
+
+                    compositeDisposable.add(disposable1)
+                    Timber.d(it.toString())
+                },
+                { error ->
+                    Timber.e("$TAG:$error")
+                }
+            )
 
         compositeDisposable.add(disposable)
+    }
+
+    private fun openMovieDetails(movie: MyMovie) {
+        val bundle = Bundle()
+        bundle.putString(FeedFragment.KEY_TITLE, movie.title)
+        findNavController().navigate(R.id.movie_details_fragment, bundle, options)
+    }
+
+    fun getMovieForUI(movies: List<MyMovie>, intResourses: Int): List<MainCardContainer> {
+        val items: List<MainCardContainer> = listOf(
+            MainCardContainer(
+                intResourses,
+                movies.map {
+                    MovieItem(it) { movie ->
+                        openMovieDetails(
+                            movie
+                        )
+                    }
+                }.toList()
+            )
+        )
+        return items
     }
 
     override fun onDestroyView() {
@@ -67,6 +120,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         _binding = null
         _searchBinding = null
         compositeDisposable.dispose()
+        adapter.clear()
     }
 
     companion object {

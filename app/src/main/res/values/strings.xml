@@ -39,4 +39,6 @@
     <string name="name_studio_tv">Warner Bros</string>
     <string name="value_genre_tv">Action, Adventure, Fantasy</string>
     <string name="value_year_tv">2018</string>
+    <string name="we_find">Мы нашли для вас</string>
+    <string name="we_dont_find">Мы ничего не нашли для вас</string>
 </resources>

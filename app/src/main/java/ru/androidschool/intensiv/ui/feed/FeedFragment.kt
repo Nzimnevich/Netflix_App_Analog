@@ -1,21 +1,18 @@
 package ru.androidschool.intensiv.ui.feed
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
+import ru.androidschool.intensiv.extensions.extensionsForObservable
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
@@ -31,7 +28,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     private val binding get() = _binding!!
     private val searchBinding get() = _searchBinding!!
 
-    private val adapter by lazy {
+    private val adapter1 by lazy {
         GroupAdapter<GroupieViewHolder>()
     }
 
@@ -59,21 +56,19 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
         searchBinding.searchToolbar.binding.searchEditText.afterTextChanged {
             Timber.d(it.toString())
-            if (it.toString().length > MIN_LENGTH) {
+            if (it.toString().length > MIN_LENGTH) { // todo тут стоит переделать на лисенер кнопки
                 openSearch(it.toString())
             }
         }
 
         val allMovies = MovieApiClient.apiClient.getAllMovies()
 
-        val disposable = allMovies
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        val disposable = allMovies.extensionsForObservable()
             .subscribe(
                 { it ->
                     val movies = it.movies
                     var items = movies?.let { getMovieForUI(it, R.string.recommended) }
-                    binding.moviesRecyclerView.adapter = adapter.apply {
+                    binding.moviesRecyclerView.adapter = adapter1.apply {
                         if (items != null) {
                             addAll(items)
                         }
@@ -85,26 +80,24 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
         compositeDisposable.add(disposable)
 
-
         // Популярные
         val popularsMovies = MovieApiClient.apiClient.getPopularMovies()
 
-        val popularMoviesDisposable: Disposable =  popularsMovies
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        val popularMoviesDisposable = popularsMovies
+            .extensionsForObservable()
             .subscribe(
                 { it ->
                     val movies = it.movies
                     // Передаем результат в adapter и отображаем элементы
                     var items = movies?.let { getMovieForUI(it, R.string.popular) }
-                    binding.moviesRecyclerView.adapter = adapter.apply {
+                    binding.moviesRecyclerView.adapter = adapter1.apply {
                         if (items != null) {
                             addAll(items)
                         }
                     }
                 }, { error ->
-                    Timber.e(error.toString())
-                }
+                Timber.e(error.toString())
+            }
 
             )
         compositeDisposable.add(popularMoviesDisposable)
@@ -141,7 +134,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     override fun onStop() {
         super.onStop()
         searchBinding.searchToolbar.clear()
-        adapter.clear()
+        adapter1.clear()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -156,7 +149,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     }
 
     companion object {
-        const val MIN_LENGTH = 3
+        const val MIN_LENGTH = 11
         const val KEY_TITLE = "title"
         const val KEY_SEARCH = "search"
 

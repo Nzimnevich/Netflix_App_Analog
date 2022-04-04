@@ -1,6 +1,5 @@
 package ru.androidschool.intensiv.network
 
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -36,7 +35,7 @@ interface MovieApiInterface {
     fun getPopularMovies(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Observable<MovieResponse>
+    ): Single<MovieResponse>
 
     /**
      * return список популярных сериалов
@@ -45,7 +44,7 @@ interface MovieApiInterface {
     fun getPopularTV(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Observable<MovieResponse>
+    ): Single<MovieResponse>
 
     /**
      *  return информацию о фильме
@@ -55,7 +54,7 @@ interface MovieApiInterface {
         @Path("movie_id") movie_id: Int = 11,
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Observable<CastResponse>
+    ): Single<CastResponse>
 
     /**
      * return информацию об актерском составе
@@ -65,5 +64,15 @@ interface MovieApiInterface {
         @Path("movie_id") movie_id: Int = 11,
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Observable<CastResponse>
+    ): Single<CastResponse>
+
+    /**
+     * return информацию об фильме, который ищут
+     */
+    @GET("search/movie")
+    fun getSearchMovies(
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru",
+        @Query("query") query: String
+    ): Single<MovieResponse>
 }
