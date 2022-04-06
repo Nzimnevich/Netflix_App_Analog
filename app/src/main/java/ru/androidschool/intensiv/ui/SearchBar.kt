@@ -10,6 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.SearchToolbarBinding
 import java.util.concurrent.TimeUnit
@@ -21,10 +22,9 @@ class SearchBar @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyle) {
 
     lateinit var binding: SearchToolbarBinding
-
     private var hint: String = ""
     private var isCancelVisible: Boolean = true
-
+    val compositeDisposable: CompositeDisposable = CompositeDisposable()
     init {
         if (attrs != null) {
             context.obtainStyledAttributes(attrs, R.styleable.SearchBar).apply {
@@ -49,7 +49,7 @@ class SearchBar @JvmOverloads constructor(
         onTextChangedObservable
             .debounce(500, TimeUnit.MILLISECONDS)
             .map { it.trim() }
-            .filter { it.length > 3 }
+            .filter { it.length > MIN_COUNT_CHAR }
             .observeOn(AndroidSchedulers.mainThread())
     }
 
@@ -80,5 +80,9 @@ class SearchBar @JvmOverloads constructor(
                 binding.deleteTextButton.visibility = View.GONE
             }
         }
+    }
+
+    companion object {
+        const val MIN_COUNT_CHAR = 3
     }
 }
