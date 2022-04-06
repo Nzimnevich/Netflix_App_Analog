@@ -50,4 +50,6 @@ ext {
     retrofitVersion = '2.9.0'
 
     interceptorVersion = '4.7.2'
+
+    roomVersion = '2.4.2'
 }
