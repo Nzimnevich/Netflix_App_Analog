@@ -66,7 +66,7 @@ class TvShowsFragment() : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        compositeDisposable.dispose()
+        compositeDisposable.clear()
     }
 
     companion object {

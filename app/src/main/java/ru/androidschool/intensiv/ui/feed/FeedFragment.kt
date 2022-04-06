@@ -133,8 +133,8 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     override fun onStop() {
         super.onStop()
-        searchBinding.searchToolbar.clear()
         adapter1.clear()
+        searchBinding.searchToolbar.clear()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -143,13 +143,13 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        compositeDisposable.clear()
         _binding = null
         _searchBinding = null
-        compositeDisposable.dispose()
     }
 
     companion object {
-        const val MIN_LENGTH = 11
+        const val MIN_LENGTH = 3
         const val KEY_TITLE = "title"
         const val KEY_SEARCH = "search"
 
