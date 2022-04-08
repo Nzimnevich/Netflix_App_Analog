@@ -1,5 +1,6 @@
 package ru.androidschool.intensiv.ui.watchlist
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import ru.androidschool.intensiv.data.MockRepository
+import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FragmentWatchlistBinding
+import ru.androidschool.intensiv.db.MovieDatabase
 
 class WatchlistFragment : Fragment() {
 
@@ -38,14 +40,27 @@ class WatchlistFragment : Fragment() {
         binding.moviesRecyclerView.layoutManager = GridLayoutManager(context, 4)
         binding.moviesRecyclerView.adapter = adapter.apply { addAll(listOf()) }
 
-        val moviesList =
-            MockRepository.getMovies().map {
-                MoviePreviewItem(
-                    it
-                ) { movie -> }
-            }.toList()
+//        val moviesList =
+//            MockRepository.getMovies().map {
+//                MoviePreviewItem(
+//                    it
+//                ) { movie -> }
+//            }.toList()
 
-        binding.moviesRecyclerView.adapter = adapter.apply { addAll(moviesList) }
+        val db = context?.let { MovieDatabase.get(it).movies() }
+        var result = db?.getMovies()?.map {
+            MyMovie.convertToMovie(it)
+        }?.map {
+            MoviePreviewItem(
+                it
+            ) { movie -> }
+        }?.toList()
+
+        binding.moviesRecyclerView.adapter = adapter.apply {
+            if (result != null) {
+                addAll(result)
+            }
+        }
     }
 
     override fun onDestroyView() {

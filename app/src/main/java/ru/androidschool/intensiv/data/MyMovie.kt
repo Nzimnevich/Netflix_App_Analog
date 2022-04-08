@@ -2,6 +2,7 @@ package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
 import ru.androidschool.intensiv.BuildConfig
+import ru.androidschool.intensiv.db.MovieEntity
 
 data class MyMovie(
     @SerializedName("id")
@@ -21,5 +22,22 @@ data class MyMovie(
     @SerializedName("backdrop_path")
     var backdrop_image: String? = null
         get() = "${BuildConfig.POSTER_PATH}$field"
-}
 
+    companion object {
+        fun convertToMovie(dto: MyMovie): MovieEntity {
+            var movieEntity = MovieEntity(title = dto.title ?: "", path = dto.backdrop_image ?: "", version = 1, id = dto.id.toLong())
+            return movieEntity
+        }
+
+        fun convertToMovie(movieEntity: MovieEntity): MyMovie {
+            var myMovie = MyMovie(title = movieEntity.title, id = movieEntity.id.toInt(), description = "", data = "", rating = 1f)
+            return myMovie
+        }
+
+        fun convertToMovieEntity(movieDetailsResponse: MovieDetailsResponse): MovieEntity? {
+            var movieEntity =
+                movieDetailsResponse.id?.let { MovieEntity(title = movieDetailsResponse.title ?: "", path = movieDetailsResponse.backdrop_image ?: "", version = 1, id = it.toLong()) }
+            return movieEntity
+        }
+    }
+}

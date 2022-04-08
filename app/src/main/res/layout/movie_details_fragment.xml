@@ -37,6 +37,7 @@
                 android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/favorite_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/image_movie_iv"

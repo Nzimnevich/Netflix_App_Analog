@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/hard_button.xml" value="0.233" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_arrow_back.xml" value="0.149" />
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/ic_wave_big.xml" value="0.315" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/search_background.xml" value="0.1875" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/selector_favorite.xml" value="0.1875" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/drawable/some_button_style.xml" value="0.233" />
@@ -14,7 +15,7 @@
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/example.xml" value="0.35104166666666664" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/feed_fragment.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/feed_header.xml" value="0.182518115942029" />
-        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/fragment_profile.xml" value="0.182518115942029" />
+        <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/fragment_search.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/fragment_watchlist.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/MyApplication4/app/src/main/res/layout/item_card.xml" value="0.33" />

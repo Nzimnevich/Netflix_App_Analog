@@ -4,12 +4,12 @@ import android.view.View
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.viewbinding.BindableItem
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.Movie
+import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.ItemSmallBinding
 
 class MoviePreviewItem(
-    private val content: Movie,
-    private val onClick: (movie: Movie) -> Unit
+    private val content: MyMovie,
+    private val onClick: (movie: MyMovie) -> Unit
 ) : BindableItem<ItemSmallBinding>() {
 
     override fun getLayout() = R.layout.item_small
@@ -18,9 +18,8 @@ class MoviePreviewItem(
         view.imagePreview.setOnClickListener {
             onClick.invoke(content)
         }
-        // TODO Получать из модели
         Picasso.get()
-            .load("https://www.kinopoisk.ru/images/film_big/1143242.jpg")
+            .load(content.image)
             .into(view.imagePreview)
     }
 

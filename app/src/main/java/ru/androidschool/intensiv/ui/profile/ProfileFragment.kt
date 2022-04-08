@@ -78,6 +78,18 @@ class ProfileFragment : Fragment() {
 
             tab.text = spannableStringTitle
         }.attach()
+
+//        val db = context?.let { MovieDatabase.get(it).movies() }
+//        var result = db?.getMovies()
+//        if (result != null) {
+//            if (result.size != 0) {
+//                Picasso.get()
+//                    .load(result[0].path)
+//                    .transform(CropCircleTransformation())
+//                    .placeholder(R.drawable.ic_avatar)
+//                    .into(binding.avatar)
+//            }
+//        }
     }
 
     override fun onDestroyView() {
