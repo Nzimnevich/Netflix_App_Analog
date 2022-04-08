@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 import ru.androidschool.intensiv.BuildConfig
 
 data class MyMovie(
+    @SerializedName("id")
+    var id: Int,
     @SerializedName(value = "original_title", alternate = ["name"])
     var title: String?,
     @SerializedName("overview")
@@ -16,4 +18,8 @@ data class MyMovie(
     @SerializedName("poster_path")
     var image: String? = null
         get() = "${BuildConfig.POSTER_PATH}$field"
+    @SerializedName("backdrop_path")
+    var backdrop_image: String? = null
+        get() = "${BuildConfig.POSTER_PATH}$field"
 }
+

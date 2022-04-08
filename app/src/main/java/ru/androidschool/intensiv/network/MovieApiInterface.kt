@@ -5,7 +5,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.androidschool.intensiv.BuildConfig
+import ru.androidschool.intensiv.data.CastDetailsResponse
 import ru.androidschool.intensiv.data.CastResponse
+import ru.androidschool.intensiv.data.MovieDetailsResponse
 import ru.androidschool.intensiv.data.MovieResponse
 
 interface MovieApiInterface {
@@ -51,20 +53,20 @@ interface MovieApiInterface {
      */
     @GET("movie/{movie_id}")
     fun getMoviesDetails(
-        @Path("movie_id") movie_id: Int = 11,
+        @Path("movie_id") movie_id: Int = 111,
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Single<CastResponse>
+    ): Single<MovieDetailsResponse>
 
     /**
      * return информацию об актерском составе
      */
     @GET("movie/{movie_id}/credits")
     fun getMoviesCrewDetails(
-        @Path("movie_id") movie_id: Int = 11,
+        @Path("movie_id") movie_id: Int = 111,
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Single<CastResponse>
+    ): Single<CastDetailsResponse>
 
     /**
      * return информацию об фильме, который ищут

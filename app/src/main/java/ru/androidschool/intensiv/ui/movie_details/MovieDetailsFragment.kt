@@ -7,14 +7,28 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.FakeActorRepository
 import ru.androidschool.intensiv.databinding.MovieDetailsFragmentBinding
+import ru.androidschool.intensiv.extensions.*
+import ru.androidschool.intensiv.network.MovieApiClient
+import ru.androidschool.intensiv.ui.feed.FeedFragment
+import timber.log.Timber
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     private var _binding: MovieDetailsFragmentBinding? = null
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val imageMovieIv by lazy { binding.imageMovieIv }
+    private val descTv by lazy { binding.descTv }
+    private val titleMovieIv by lazy { binding.titleMovieIv }
+    private val valueYearTv by lazy { binding.valueYearTv }
+    private val valueGenreTv by lazy { binding.valueGenreTv }
+    private val ratingBarRb by lazy { binding.ratingBarRb }
 
     private val binding get() = _binding!!
 
@@ -38,14 +52,56 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         binding.actorsRecyclerView.layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
         binding.actorsRecyclerView.adapter = adapter.apply { addAll(listOf()) }
 
-        val actorList =
-            FakeActorRepository().getActors().map {
-                ActorPreviewItem(
-                    it
-                ) { actor -> }
-            }.toList()
+        val movieId = arguments?.getString(FeedFragment.KEY_ID)?.toInt()
 
-        binding.actorsRecyclerView.adapter = adapter.apply { addAll(actorList) }
+        val movieDetails = MovieApiClient.apiClient.getMoviesDetails(movie_id = movieId ?: 1)
+        val disposable1: Disposable =
+            movieDetails.extensionsMovieDetailsForObservable().subscribe({
+                descTv.text = it.description
+                titleMovieIv.text = it.title
+                valueYearTv.text = it.releaseDate?.substring(0, 4) ?: ""
+                ratingBarRb.rating = it.rating
+                valueGenreTv.text = it.genres.toString().removePrefix("[").removeSuffix("]")
+                Picasso.get()
+                    .load(it.backdrop_image)
+                    .fit()
+                    .centerCrop()
+                    .into(imageMovieIv)
+            }
+            ) { error ->
+                Timber.e(error.toString())
+            }
+
+        val movieCastDetails = MovieApiClient.apiClient.getMoviesCrewDetails(movie_id = movieId ?: 1)
+
+        val disposable: Disposable =
+            movieCastDetails.extensionsCastDetailsForObservable()
+                .subscribe({ it ->
+                    val cast = it.castGroup
+                    val actorList = cast.map {
+                        ActorPreviewItem(
+                            it
+                        )
+                    }.toList()
+                    binding.actorsRecyclerView.adapter = adapter.apply { addAll(actorList) }
+                }
+                ) { error ->
+                    Timber.e(error.toString())
+                }
+
+
+
+
+
+        compositeDisposable.add(disposable)
+        compositeDisposable.add(disposable1)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        compositeDisposable.dispose()
+        adapter.clear()
     }
 
     companion object {
