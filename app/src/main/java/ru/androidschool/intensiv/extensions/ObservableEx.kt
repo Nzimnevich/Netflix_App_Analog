@@ -7,6 +7,7 @@ import ru.androidschool.intensiv.data.CastDetailsResponse
 import ru.androidschool.intensiv.data.CastResponse
 import ru.androidschool.intensiv.data.MovieDetailsResponse
 import ru.androidschool.intensiv.data.MovieResponse
+import ru.androidschool.intensiv.db.MovieEntity
 
 fun Single<MovieResponse>.extensionsForObservable(): Single<MovieResponse> {
     return this
@@ -25,3 +26,4 @@ fun Single<CastDetailsResponse>.extensionsCastDetailsForObservable(): Single<Cas
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 }
+

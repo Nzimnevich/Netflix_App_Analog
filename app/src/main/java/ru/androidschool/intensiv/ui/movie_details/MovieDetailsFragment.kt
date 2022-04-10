@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.MovieDetailsFragmentBinding
@@ -104,18 +106,15 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         favoriteCh.setOnClickListener() {
             if (favoriteCh.isChecked) {
                 if (db != null) {
-                    db.save(movieDb)
+                    val disposableDb = db.save(movieDb)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe()
+
+                    compositeDisposable.add(disposableDb)
                 }
             }
         }
-
-//        favoriteCh.setOnCheckedChangeListener { buttonView, isChecked ->
-//            if (isChecked) {
-//                if (db != null) {
-//                    db.update(movieDb)
-//                }
-//            }
-//        }
     }
 
     override fun onDestroyView() {

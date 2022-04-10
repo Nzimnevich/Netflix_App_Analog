@@ -24,12 +24,12 @@ data class MyMovie(
         get() = "${BuildConfig.POSTER_PATH}$field"
 
     companion object {
-        fun convertToMovie(dto: MyMovie): MovieEntity {
+        fun convertToMovieEntity(dto: MyMovie): MovieEntity {
             var movieEntity = MovieEntity(title = dto.title ?: "", path = dto.backdrop_image ?: "", version = 1, id = dto.id.toLong())
             return movieEntity
         }
 
-        fun convertToMovie(movieEntity: MovieEntity): MyMovie {
+        fun convertMEToMovie(movieEntity: MovieEntity): MyMovie {
             var myMovie = MyMovie(title = movieEntity.title, id = movieEntity.id.toInt(), description = "", data = "", rating = 1f)
             myMovie.backdrop_image = movieEntity.path
             return myMovie
