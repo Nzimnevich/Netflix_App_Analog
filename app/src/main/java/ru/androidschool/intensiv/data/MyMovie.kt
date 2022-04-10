@@ -31,6 +31,7 @@ data class MyMovie(
 
         fun convertToMovie(movieEntity: MovieEntity): MyMovie {
             var myMovie = MyMovie(title = movieEntity.title, id = movieEntity.id.toInt(), description = "", data = "", rating = 1f)
+            myMovie.backdrop_image = movieEntity.path
             return myMovie
         }
 

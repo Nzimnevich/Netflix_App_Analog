@@ -19,7 +19,7 @@ class MoviePreviewItem(
             onClick.invoke(content)
         }
         Picasso.get()
-            .load(content.image)
+            .load(content.backdrop_image)
             .into(view.imagePreview)
     }
 

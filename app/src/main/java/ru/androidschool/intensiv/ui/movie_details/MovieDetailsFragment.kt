@@ -57,7 +57,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         binding.actorsRecyclerView.layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
         binding.actorsRecyclerView.adapter = adapter.apply { addAll(listOf()) }
-        val db = context?.let { MovieDatabase.get(it).movies() }
+        var db = context?.let { MovieDatabase.get(it).movies() }
 
         val movieId = arguments?.getString(FeedFragment.KEY_ID)?.toInt()
 
@@ -104,10 +104,18 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         favoriteCh.setOnClickListener() {
             if (favoriteCh.isChecked) {
                 if (db != null) {
-                    db.update(movieDb)
+                    db.save(movieDb)
                 }
             }
         }
+
+//        favoriteCh.setOnCheckedChangeListener { buttonView, isChecked ->
+//            if (isChecked) {
+//                if (db != null) {
+//                    db.update(movieDb)
+//                }
+//            }
+//        }
     }
 
     override fun onDestroyView() {

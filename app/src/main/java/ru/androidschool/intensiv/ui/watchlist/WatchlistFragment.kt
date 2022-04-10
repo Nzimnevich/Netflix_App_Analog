@@ -1,6 +1,5 @@
 package ru.androidschool.intensiv.ui.watchlist
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,13 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FragmentWatchlistBinding
+import ru.androidschool.intensiv.db.MovieDao
 import ru.androidschool.intensiv.db.MovieDatabase
 
 class WatchlistFragment : Fragment() {
 
     private var _binding: FragmentWatchlistBinding? = null
-
+    private lateinit var db: MovieDao
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -31,6 +31,7 @@ class WatchlistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWatchlistBinding.inflate(inflater, container, false)
+        db = context?.let { MovieDatabase.get(it).movies() }!!
         return binding.root
     }
 
@@ -47,7 +48,6 @@ class WatchlistFragment : Fragment() {
 //                ) { movie -> }
 //            }.toList()
 
-        val db = context?.let { MovieDatabase.get(it).movies() }
         var result = db?.getMovies()?.map {
             MyMovie.convertToMovie(it)
         }?.map {

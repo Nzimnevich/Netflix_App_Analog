@@ -10,17 +10,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.FragmentProfileBinding
+import ru.androidschool.intensiv.db.MovieDao
+import ru.androidschool.intensiv.db.MovieDatabase
 
 class ProfileFragment : Fragment() {
 
     private lateinit var profileTabLayoutTitles: Array<String>
 
     private var _binding: FragmentProfileBinding? = null
-
+    private lateinit var db: MovieDao
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -41,17 +41,19 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        db = context?.let { MovieDatabase.get(it).movies() }!!
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Picasso.get()
-            .load(R.drawable.ic_avatar)
-            .transform(CropCircleTransformation())
-            .placeholder(R.drawable.ic_avatar)
-            .into(binding.avatar)
+//        Picasso.get()
+//            .load(R.drawable.ic_avatar)
+//            .transform(CropCircleTransformation())
+//            .placeholder(R.drawable.ic_avatar)
+//            .into(binding.avatar)
 
         profileTabLayoutTitles = resources.getStringArray(R.array.tab_titles)
 
@@ -79,7 +81,6 @@ class ProfileFragment : Fragment() {
             tab.text = spannableStringTitle
         }.attach()
 
-//        val db = context?.let { MovieDatabase.get(it).movies() }
 //        var result = db?.getMovies()
 //        if (result != null) {
 //            if (result.size != 0) {
