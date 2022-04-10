@@ -17,3 +17,5 @@ data class MyMovie(
     var image: String? = null
         get() = "${BuildConfig.POSTER_PATH}$field"
 }
+
+

@@ -7,12 +7,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
-import ru.androidschool.intensiv.extensions.extensionsForObservable
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
@@ -61,16 +63,29 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
         }
 
-        val allMovies = MovieApiClient.apiClient.getAllMovies()
+        val sourse1 = MovieApiClient.apiClient.getAllMovies()
+        val sourse2 = MovieApiClient.apiClient.getPopularMovies()
 
-        val disposable = allMovies.extensionsForObservable()
+        val disposable2 = Single.zip(sourse1, sourse2) { allMovies1, popularMovies1 ->
+            mapOf(R.string.popular to popularMovies1, R.string.recommended to allMovies1)
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { it ->
-                    val movies = it.movies
-                    var items = movies?.let { getMovieForUI(it, R.string.recommended) }
+                {
+                    val popularMovies = it[R.string.popular]?.movies
+                    val recommendMovies = it[R.string.recommended]?.movies
+
+                    var recommended: List<MainCardContainer>? =
+                        recommendMovies?.let { it1 -> getMovieForUI(it1, R.string.recommended) }
+
+                    var popular: List<MainCardContainer>? =
+                        popularMovies?.let { it1 -> getMovieForUI(it1, R.string.popular) }
+
+                    var all = recommended.orEmpty() + popular.orEmpty()
+
                     binding.moviesRecyclerView.adapter = adapter1.apply {
-                        if (items != null) {
-                            addAll(items)
+                        if (recommended != null && popular != null) {
+                            addAll(all)
                         }
                     }
                 }, { error ->
@@ -78,29 +93,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
             )
 
-        compositeDisposable.add(disposable)
-
-        // Популярные
-        val popularsMovies = MovieApiClient.apiClient.getPopularMovies()
-
-        val popularMoviesDisposable = popularsMovies
-            .extensionsForObservable()
-            .subscribe(
-                { it ->
-                    val movies = it.movies
-                    // Передаем результат в adapter и отображаем элементы
-                    var items = movies?.let { getMovieForUI(it, R.string.popular) }
-                    binding.moviesRecyclerView.adapter = adapter1.apply {
-                        if (items != null) {
-                            addAll(items)
-                        }
-                    }
-                }, { error ->
-                Timber.e(error.toString())
-            }
-
-            )
-        compositeDisposable.add(popularMoviesDisposable)
+        compositeDisposable.add(disposable2)
     }
 
     fun getMovieForUI(movies: List<MyMovie>, intResourses: Int): List<MainCardContainer> {
