@@ -6,8 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.SearchToolbarBinding
+import java.util.concurrent.TimeUnit
 
 class SearchBar @JvmOverloads constructor(
     context: Context,
@@ -16,10 +22,9 @@ class SearchBar @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyle) {
 
     lateinit var binding: SearchToolbarBinding
-
     private var hint: String = ""
     private var isCancelVisible: Boolean = true
-
+    val compositeDisposable: CompositeDisposable = CompositeDisposable()
     init {
         if (attrs != null) {
             context.obtainStyledAttributes(attrs, R.styleable.SearchBar).apply {
@@ -30,7 +35,25 @@ class SearchBar @JvmOverloads constructor(
         }
     }
 
-    fun setText(text: String?) {
+    val onTextChangedObservable by lazy {
+        Observable.create(
+            ObservableOnSubscribe<String> { subscriber ->
+                binding.searchEditText.doAfterTextChanged { text ->
+                    subscriber.onNext(text.toString())
+                }
+            }
+        )
+    }
+
+    val onTextChangedWithOperatorObservable by lazy {
+        onTextChangedObservable
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .map { it.trim() }
+            .filter { it.length > MIN_COUNT_CHAR }
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun setText(text: String) {
         binding.searchEditText.setText(text)
     }
 
@@ -59,4 +82,7 @@ class SearchBar @JvmOverloads constructor(
         }
     }
 
+    companion object {
+        const val MIN_COUNT_CHAR = 3
+    }
 }

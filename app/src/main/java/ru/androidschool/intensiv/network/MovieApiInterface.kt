@@ -1,6 +1,6 @@
 package ru.androidschool.intensiv.network
 
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,7 +17,7 @@ interface MovieApiInterface {
     fun getAllMovies(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Call<MovieResponse>
+    ): Single<MovieResponse>
 
     /**
      *  return список новых фильмов
@@ -26,7 +26,7 @@ interface MovieApiInterface {
     fun getAllNovelties(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Call<MovieResponse>
+    ): Single<MovieResponse>
 
     /**
      *  return список популярных фильмов
@@ -35,7 +35,7 @@ interface MovieApiInterface {
     fun getPopularMovies(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Call<MovieResponse>
+    ): Single<MovieResponse>
 
     /**
      * return список популярных сериалов
@@ -44,7 +44,7 @@ interface MovieApiInterface {
     fun getPopularTV(
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Call<MovieResponse>
+    ): Single<MovieResponse>
 
     /**
      *  return информацию о фильме
@@ -54,7 +54,7 @@ interface MovieApiInterface {
         @Path("movie_id") movie_id: Int = 11,
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Call<CastResponse>
+    ): Single<CastResponse>
 
     /**
      * return информацию об актерском составе
@@ -64,5 +64,15 @@ interface MovieApiInterface {
         @Path("movie_id") movie_id: Int = 11,
         @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
         @Query("language") language: String = "ru"
-    ): Call<CastResponse>
+    ): Single<CastResponse>
+
+    /**
+     * return информацию об фильме, который ищут
+     */
+    @GET("search/movie")
+    fun getSearchMovies(
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DATABASE_API,
+        @Query("language") language: String = "ru",
+        @Query("query") query: String
+    ): Single<MovieResponse>
 }

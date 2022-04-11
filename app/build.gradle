@@ -100,5 +100,11 @@ dependencies {
     //Test
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$rootProject.junitVersion")
 
-    implementation group: 'androidx.test.espresso', name: 'espresso-core', version: '3.4.0'
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.rxAdapterVersion"
+
+    implementation "androidx.compose.runtime:runtime:$rootProject.runtimeVersion"
+    implementation "androidx.compose.runtime:runtime-livedata:$rootProject.runtimeVersion"
 }
