@@ -8,14 +8,14 @@ import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
+import ru.androidschool.intensiv.extensions.applySchedulers
+import ru.androidschool.intensiv.extensions.setLoaderSingle
 import ru.androidschool.intensiv.network.MovieApiClient
+import ru.androidschool.intensiv.ui.MovieMapper
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
 
@@ -24,6 +24,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     private var _binding: FeedFragmentBinding? = null
     private var _searchBinding: FeedHeaderBinding? = null
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val progressBar by lazy { binding.progressBar }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -66,20 +67,34 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         val sourse1 = MovieApiClient.apiClient.getAllMovies()
         val sourse2 = MovieApiClient.apiClient.getPopularMovies()
 
-        val disposable2 = Single.zip(sourse1, sourse2) { allMovies1, popularMovies1 ->
+        val zipResult = Single.zip(sourse1, sourse2) { allMovies1, popularMovies1 ->
             mapOf(R.string.popular to popularMovies1, R.string.recommended to allMovies1)
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        }.applySchedulers()
+            .setLoaderSingle(progressBar)
             .subscribe(
                 {
                     val popularMovies = it[R.string.popular]?.movies
                     val recommendMovies = it[R.string.recommended]?.movies
 
                     var recommended: List<MainCardContainer>? =
-                        recommendMovies?.let { it1 -> getMovieForUI(it1, R.string.recommended) }
+                        recommendMovies?.let { it1 ->
+                            movieMapper.getMovieForUI(
+                                it1,
+                                R.string.recommended,
+                                options,
+                                this
+                            )
+                        }
 
                     var popular: List<MainCardContainer>? =
-                        popularMovies?.let { it1 -> getMovieForUI(it1, R.string.popular) }
+                        popularMovies?.let { it1 ->
+                            movieMapper.getMovieForUI(
+                                it1,
+                                R.string.popular,
+                                options,
+                                this
+                            )
+                        }
 
                     var all = recommended.orEmpty() + popular.orEmpty()
 
@@ -93,29 +108,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
             )
 
-        compositeDisposable.add(disposable2)
-    }
-
-    fun getMovieForUI(movies: List<MyMovie>, intResourses: Int): List<MainCardContainer> {
-        var items: List<MainCardContainer> = listOf(
-            MainCardContainer(
-                intResourses,
-                movies.map {
-                    MovieItem(it) { movie ->
-                        openMovieDetails(
-                            movie
-                        )
-                    }
-                }.toList()
-            )
-        )
-        return items
-    }
-
-    private fun openMovieDetails(movie: MyMovie) {
-        val bundle = Bundle()
-        bundle.putString(KEY_TITLE, movie.title)
-        findNavController().navigate(R.id.movie_details_fragment, bundle, options)
+        compositeDisposable.add(zipResult)
     }
 
     private fun openSearch(searchText: String) {
@@ -145,7 +138,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val MIN_LENGTH = 3
         const val KEY_TITLE = "title"
         const val KEY_SEARCH = "search"
-
-        private val TAG = FeedFragment::class.java.simpleName
+        private val movieMapper = MovieMapper
+        private val TAG = FeedFragment::class
     }
 }
