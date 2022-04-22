@@ -31,7 +31,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     private val binding get() = _binding!!
     private val searchBinding get() = _searchBinding!!
 
-    private val adapter1 by lazy {
+    private val adapter by lazy {
         GroupAdapter<GroupieViewHolder>()
     }
 
@@ -98,7 +98,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
                     var all = recommended.orEmpty() + popular.orEmpty()
 
-                    binding.moviesRecyclerView.adapter = adapter1.apply {
+                    binding.moviesRecyclerView.adapter = adapter.apply {
                         if (recommended != null && popular != null) {
                             addAll(all)
                         }
@@ -119,7 +119,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     override fun onStop() {
         super.onStop()
-        adapter1.clear()
+        adapter.clear()
         searchBinding.searchToolbar.clear()
     }
 
