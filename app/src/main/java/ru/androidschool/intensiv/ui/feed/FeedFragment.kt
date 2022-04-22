@@ -139,6 +139,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val KEY_TITLE = "title"
         const val KEY_SEARCH = "search"
         private val movieMapper = MovieMapper
-        private val TAG = FeedFragment::class
+        private val TAG = FeedFragment::class.toString()
     }
 }

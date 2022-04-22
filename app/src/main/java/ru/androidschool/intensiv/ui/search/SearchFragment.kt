@@ -107,6 +107,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     companion object {
         private val movieMapper = MovieMapper
-        private val TAG = TvShowsFragment::class
+        private val TAG = TvShowsFragment::class.toString()
     }
 }
