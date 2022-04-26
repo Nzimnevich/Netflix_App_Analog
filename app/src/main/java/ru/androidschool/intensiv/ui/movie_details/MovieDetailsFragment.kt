@@ -125,6 +125,6 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     }
 
     companion object {
-        private val TAG = MovieDetailsFragment::class.java.simpleName
+        private val TAG = MovieDetailsFragment::class.toString()
     }
 }
