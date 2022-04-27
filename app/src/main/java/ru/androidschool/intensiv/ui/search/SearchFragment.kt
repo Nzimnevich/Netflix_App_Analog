@@ -18,7 +18,6 @@ import ru.androidschool.intensiv.extensions.setLoaderForObservable
 import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.ui.MovieMapper
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
-import ru.androidschool.intensiv.ui.tvshows.TvShowsFragment
 import timber.log.Timber
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -64,9 +63,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             searchBinding.searchToolbar.onTextChangedWithOperatorObservable
                 .setLoaderForObservable(progressBar).subscribe(
                     {
-                        val popularsMovies = MovieApiClient.apiClient.getSearchMovies(query = it)
+                        val searchMovies = MovieApiClient.apiClient.getSearchMovies(query = it)
                         val searchMovieDisposable: Disposable =
-                            popularsMovies.applySchedulers().subscribe({
+                            searchMovies.applySchedulers().subscribe({
                                 val movies = it.movies
                                 val items = movies?.let {
                                     movieMapper.getMovieForUI(
@@ -76,7 +75,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                                         this
                                     )
                                 }
-                                binding.actorsRecyclerView.adapter = adapter.apply {
+                                binding.actorsRv.adapter = adapter.apply {
                                     if (items != null) {
                                         addAll(items)
                                     }
@@ -107,6 +106,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     companion object {
         private val movieMapper = MovieMapper
-        private val TAG = TvShowsFragment::class.toString()
+        private val TAG = "TvShowsFragment"
     }
 }

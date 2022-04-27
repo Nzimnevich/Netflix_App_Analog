@@ -19,28 +19,50 @@ data class MyMovie(
     @SerializedName("poster_path")
     var image: String? = null
         get() = "${BuildConfig.POSTER_PATH}$field"
+
     @SerializedName("backdrop_path")
     var backdrop_image: String? = null
         get() = "${BuildConfig.POSTER_PATH}$field"
 
     companion object {
         fun convertToMovieEntity(dto: MyMovie): MovieEntity {
-            var movieEntity = MovieEntity(title = dto.title ?: "", path = dto.backdrop_image ?: "", version = 1, id = dto.id.toLong())
+            var movieEntity = MovieEntity(
+                title = dto.title ?: "",
+                path = dto.backdrop_image ?: "",
+                version = 1,
+                id = dto.id
+            )
             return movieEntity
         }
 
-        fun convertMEToMovie(movieEntity: MovieEntity): MyMovie {
-            var myMovie = MyMovie(title = movieEntity.title, id = movieEntity.id.toInt(), description = "", data = "", rating = 1f)
+        fun convertMovieEntityToMovie(movieEntity: MovieEntity): MyMovie {
+            var myMovie = MyMovie(
+                title = movieEntity.title,
+                id = movieEntity.id.toInt(),
+                description = "",
+                data = "",
+                rating = 1f
+            )
             myMovie.backdrop_image = movieEntity.path
             return myMovie
         }
 
+        fun convertListMovieEntityToMovie(moviesEntity: List<MovieEntity>): List<MovieEntity> {
+            moviesEntity.forEach { convertMovieEntityToMovie(it) }
+            return moviesEntity
+        }
+
         fun convertToMovieEntity(movieDetailsResponse: MovieDetailsResponse): MovieEntity? {
             var movieEntity =
-                movieDetailsResponse.id?.let { MovieEntity(title = movieDetailsResponse.title ?: "", path = movieDetailsResponse.backdrop_image ?: "", version = 1, id = it.toLong()) }
+                movieDetailsResponse.id?.let {
+                    MovieEntity(
+                        title = movieDetailsResponse.title ?: "",
+                        path = movieDetailsResponse.backdrop_image ?: "",
+                        version = 1,
+                        id = it
+                    )
+                }
             return movieEntity
         }
     }
 }
-
-

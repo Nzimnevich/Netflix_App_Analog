@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.ui.feed.FeedFragment
+import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_ID
 import ru.androidschool.intensiv.ui.feed.MainCardContainer
 import ru.androidschool.intensiv.ui.feed.MovieItem
 
@@ -35,7 +36,7 @@ object MovieMapper {
 
     private fun openMovieDetails(movie: MyMovie, options: NavOptions, fragment: Fragment) {
         val bundle = Bundle()
-        bundle.putString(FeedFragment.KEY_TITLE, movie.title)
+        bundle.putString(KEY_ID, movie.id.toString())
         fragment.findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }
 }

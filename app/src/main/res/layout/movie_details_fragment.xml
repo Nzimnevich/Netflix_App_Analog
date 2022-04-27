@@ -95,7 +95,7 @@
                     >
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/actors_recycler_view"
+                        android:id="@+id/actors_rv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/blueDark"

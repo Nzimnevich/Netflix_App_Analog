@@ -70,6 +70,6 @@ class TvShowsFragment() : Fragment() {
     }
 
     companion object {
-        private val TAG = TvShowsFragment::class
+        private val TAG = "TvShowsFragment"
     }
 }

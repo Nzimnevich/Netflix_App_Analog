@@ -18,6 +18,7 @@
 
     <string name="tv_show">Телесериалы</string>
     <string name="close">закрыть</string>
+    <string name="year_unknown">Год неизвестен</string>
 
     <string-array name="tab_titles">
         <item>23\n Понравилось</item>

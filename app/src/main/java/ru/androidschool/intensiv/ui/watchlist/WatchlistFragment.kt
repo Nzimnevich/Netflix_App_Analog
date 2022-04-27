@@ -46,13 +46,13 @@ class WatchlistFragment : Fragment() {
         binding.moviesRecyclerView.layoutManager = GridLayoutManager(context, 4)
         binding.moviesRecyclerView.adapter = adapter.apply { addAll(listOf()) }
 
-        var i = db.getMovies().subscribeOn(Schedulers.io())
+        var allMovies = db.getMovies().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-        val disposable = i.subscribe(
+        val disposable = allMovies.subscribe(
             {
                 var movie = it.map {
-                    MyMovie.convertMEToMovie(it)
+                    MyMovie.convertMovieEntityToMovie(it)
                 }.map {
                     MoviePreviewItem(
                         it

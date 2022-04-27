@@ -104,8 +104,8 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                         }
                     }
                 }, { error ->
-                    Timber.e(error.toString())
-                }
+                Timber.e(error.toString())
+            }
             )
 
         compositeDisposable.add(zipResult)
@@ -141,6 +141,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val KEY_ID = "1"
 
         private val movieMapper = MovieMapper
-        private val TAG = FeedFragment::class.java.simpleName
+        private val TAG = "FeedFragment"
     }
 }

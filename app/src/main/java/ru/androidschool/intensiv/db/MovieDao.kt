@@ -16,5 +16,5 @@ interface MovieDao {
     fun update(movies: List<MovieEntity>): Completable
 
     @Delete
-    fun delete(movie: MovieEntity): Completable
+    fun delete(movie: List<MovieEntity>): Completable
 }
