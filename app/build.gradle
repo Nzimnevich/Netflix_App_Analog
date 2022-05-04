@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 apply from: "../ktlint.gradle"
 
@@ -24,20 +25,20 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'BASE_URL', "\"https://api.themoviedb.org/3/\""
             buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\""
         }
         staging {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'BASE_URL', "\"https://api.themoviedb.org/3/\""
             buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\""
 
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", 'BASE_URL',  "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", 'BASE_URL', "\"https://api.themoviedb.org/3/\""
             buildConfigField "String", 'POSTER_PATH', "\"https://image.tmdb.org/t/p/w500\""
         }
     }
@@ -107,4 +108,12 @@ dependencies {
 
     implementation "androidx.compose.runtime:runtime:$rootProject.runtimeVersion"
     implementation "androidx.compose.runtime:runtime-livedata:$rootProject.runtimeVersion"
+
+    // RxJava support for Room
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+    implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
+
 }

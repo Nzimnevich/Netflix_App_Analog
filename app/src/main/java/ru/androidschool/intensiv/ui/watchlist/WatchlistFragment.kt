@@ -8,15 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import ru.androidschool.intensiv.data.MockRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import ru.androidschool.intensiv.data.MyMovie
 import ru.androidschool.intensiv.databinding.FragmentWatchlistBinding
+import ru.androidschool.intensiv.db.MovieDao
+import ru.androidschool.intensiv.db.MovieDatabase
+import timber.log.Timber
 
 class WatchlistFragment : Fragment() {
 
     private var _binding: FragmentWatchlistBinding? = null
-
+    private lateinit var db: MovieDao
     // This property is only valid between onCreateView and
     // onDestroyView.
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val binding get() = _binding!!
 
     private val adapter by lazy {
@@ -29,6 +36,7 @@ class WatchlistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWatchlistBinding.inflate(inflater, container, false)
+        db = context?.let { MovieDatabase.get(it).movies() }!!
         return binding.root
     }
 
@@ -38,18 +46,36 @@ class WatchlistFragment : Fragment() {
         binding.moviesRecyclerView.layoutManager = GridLayoutManager(context, 4)
         binding.moviesRecyclerView.adapter = adapter.apply { addAll(listOf()) }
 
-        val moviesList =
-            MockRepository.getMovies().map {
-                MoviePreviewItem(
-                    it
-                ) { movie -> }
-            }.toList()
+        var allMovies = db.getMovies().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
-        binding.moviesRecyclerView.adapter = adapter.apply { addAll(moviesList) }
+        val disposable = allMovies.subscribe(
+            {
+                var movie = it.map {
+                    MyMovie.convertMovieEntityToMovie(it)
+                }.map {
+                    MoviePreviewItem(
+                        it
+                    ) { movie -> }
+                }
+
+                binding.moviesRecyclerView.adapter = adapter.apply {
+                    if (movie != null) {
+                        addAll(movie)
+                    }
+                }
+            },
+            { error ->
+                Timber.e("$error")
+            }
+        )
+
+        compositeDisposable.add(disposable)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        compositeDisposable.clear()
         _binding = null
     }
 

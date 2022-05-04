@@ -18,6 +18,7 @@
 
     <string name="tv_show">Телесериалы</string>
     <string name="close">закрыть</string>
+    <string name="year_unknown">Год неизвестен</string>
 
     <string-array name="tab_titles">
         <item>23\n Понравилось</item>
@@ -41,4 +42,7 @@
     <string name="value_year_tv">2018</string>
     <string name="we_find">Мы нашли для вас</string>
     <string name="we_dont_find">Мы ничего не нашли для вас</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

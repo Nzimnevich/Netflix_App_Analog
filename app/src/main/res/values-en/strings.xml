@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Мои фильмы</string>
     <string name="desc_cinema_tv">In 1985 Maine, lighthouse keeper Thomas Curry rescues Atlanna, the queen of the underwater kingdom of Atlantis, during a storm. They fall in love and have a son named Arthur, who has the power to communicate with sea creatures.</string>
+    <string name="year_unknown">Year Unknown</string>
 </resources>

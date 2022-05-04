@@ -25,6 +25,8 @@ class TVItem(
 
         Picasso.get()
             .load(path)
+            .fit()
+            .centerCrop()
             .into(view.imageIv)
     }
 

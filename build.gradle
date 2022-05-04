@@ -51,6 +51,8 @@ ext {
 
     interceptorVersion = '4.7.2'
 
+    roomVersion = '2.4.2'
+
     rxVersion = '2.2.17'
     rxAndroidVersion = '2.1.1'
     rxAdapterVersion = '2.7.1'

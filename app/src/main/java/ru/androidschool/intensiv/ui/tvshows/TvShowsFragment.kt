@@ -13,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
+import ru.androidschool.intensiv.extensions.applySchedulers
 import ru.androidschool.intensiv.network.MovieApiClient
 import timber.log.Timber
 
@@ -44,8 +45,7 @@ class TvShowsFragment() : Fragment() {
         val allTV = MovieApiClient.apiClient.getPopularTV()
 
         val disposable: Disposable = allTV
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .applySchedulers()
             .subscribe(
                 { it ->
                     val tv = it.movies
@@ -70,6 +70,6 @@ class TvShowsFragment() : Fragment() {
     }
 
     companion object {
-        private val TAG = TvShowsFragment::class.java.simpleName
+        private val TAG = "TvShowsFragment"
     }
 }
