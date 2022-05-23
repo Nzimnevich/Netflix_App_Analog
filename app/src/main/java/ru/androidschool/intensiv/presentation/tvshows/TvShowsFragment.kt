@@ -13,7 +13,7 @@ import ru.androidschool.intensiv.data.repository.TVShowsRemoteRepository
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.domain.usecase.TVShowsUseCase
 
-class TvShowsFragment() : Fragment(), TVShowsPresenter.TVShowsView {
+class TvShowsFragment : Fragment(), TVShowsPresenter.TVShowsView {
     private var _binding: TvShowsFragmentBinding? = null
 
     private val binding get() = _binding!!
