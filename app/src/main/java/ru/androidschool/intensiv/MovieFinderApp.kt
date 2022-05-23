@@ -1,7 +1,6 @@
-package ru.androidschool.intensiv.presentation
+package ru.androidschool.intensiv
 
 import android.app.Application
-import ru.androidschool.intensiv.BuildConfig
 import timber.log.Timber
 
 class MovieFinderApp : Application() {
