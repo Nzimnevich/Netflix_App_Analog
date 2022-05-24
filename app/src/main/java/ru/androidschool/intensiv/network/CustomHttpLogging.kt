@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.data.network
+package ru.androidschool.intensiv.network
 
 import android.util.Log
 import com.google.gson.GsonBuilder

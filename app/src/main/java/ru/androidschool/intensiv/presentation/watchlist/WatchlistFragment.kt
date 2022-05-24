@@ -11,10 +11,10 @@ import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import ru.androidschool.intensiv.data.vo.MyMovie
+import ru.androidschool.intensiv.data.dto.MyMovie
 import ru.androidschool.intensiv.databinding.FragmentWatchlistBinding
-import ru.androidschool.intensiv.data.dto.MovieDao
-import ru.androidschool.intensiv.data.dto.MovieDatabase
+import ru.androidschool.intensiv.data.database.MovieDao
+import ru.androidschool.intensiv.data.database.MovieDatabase
 import timber.log.Timber
 
 class WatchlistFragment : Fragment() {

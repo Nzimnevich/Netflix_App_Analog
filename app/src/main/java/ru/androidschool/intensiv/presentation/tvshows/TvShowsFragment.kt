@@ -12,6 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import ru.androidschool.intensiv.data.repository.TVShowsRemoteRepository
 import ru.androidschool.intensiv.databinding.TvShowsFragmentBinding
 import ru.androidschool.intensiv.domain.usecase.TVShowsUseCase
+import ru.androidschool.intensiv.network.MovieApiClient
 
 class TvShowsFragment : Fragment(), TVShowsPresenter.TVShowsView {
     private var _binding: TvShowsFragmentBinding? = null
@@ -19,7 +20,7 @@ class TvShowsFragment : Fragment(), TVShowsPresenter.TVShowsView {
     private val binding get() = _binding!!
 
     private val presenter: TVShowsPresenter by lazy {
-        TVShowsPresenter(TVShowsUseCase(TVShowsRemoteRepository()))
+        TVShowsPresenter(TVShowsUseCase(TVShowsRemoteRepository(apiClient = MovieApiClient)))
     }
 
     private val adapter by lazy {

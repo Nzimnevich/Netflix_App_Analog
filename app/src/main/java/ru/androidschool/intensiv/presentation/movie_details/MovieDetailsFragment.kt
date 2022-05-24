@@ -15,13 +15,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.vo.MyMovie
+import ru.androidschool.intensiv.data.dto.MyMovie
 import ru.androidschool.intensiv.databinding.MovieDetailsFragmentBinding
-import ru.androidschool.intensiv.data.dto.MovieDatabase
-import ru.androidschool.intensiv.data.dto.MovieEntity
+import ru.androidschool.intensiv.data.database.MovieDatabase
+import ru.androidschool.intensiv.data.database.MovieEntity
 import ru.androidschool.intensiv.extensions.extensionsForAnySingle
 import ru.androidschool.intensiv.extensions.extensionsForDB
-import ru.androidschool.intensiv.data.network.MovieApiClient
+import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.presentation.feed.FeedFragment
 import timber.log.Timber
 

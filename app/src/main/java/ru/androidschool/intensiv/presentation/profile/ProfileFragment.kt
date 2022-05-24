@@ -12,8 +12,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.databinding.FragmentProfileBinding
-import ru.androidschool.intensiv.data.dto.MovieDao
-import ru.androidschool.intensiv.data.dto.MovieDatabase
+import ru.androidschool.intensiv.data.database.MovieDao
+import ru.androidschool.intensiv.data.database.MovieDatabase
 
 class ProfileFragment : Fragment() {
 

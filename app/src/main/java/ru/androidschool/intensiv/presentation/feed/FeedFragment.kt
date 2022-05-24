@@ -14,7 +14,7 @@ import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
 import ru.androidschool.intensiv.extensions.applySchedulers
 import ru.androidschool.intensiv.extensions.setLoaderSingle
-import ru.androidschool.intensiv.data.network.MovieApiClient
+import ru.androidschool.intensiv.network.MovieApiClient
 import ru.androidschool.intensiv.data.mappers.MovieMapper
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber

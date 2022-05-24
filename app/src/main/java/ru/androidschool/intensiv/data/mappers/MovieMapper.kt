@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieResponse
-import ru.androidschool.intensiv.data.vo.MyMovie
+import ru.androidschool.intensiv.data.dto.MyMovie
 import ru.androidschool.intensiv.presentation.feed.FeedFragment.Companion.KEY_ID
 import ru.androidschool.intensiv.presentation.feed.MainCardContainer
 import ru.androidschool.intensiv.presentation.feed.MovieItem

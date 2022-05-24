@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.data.vo
+package ru.androidschool.intensiv.data.dto
 
 import com.google.gson.annotations.SerializedName
 import ru.androidschool.intensiv.BuildConfig

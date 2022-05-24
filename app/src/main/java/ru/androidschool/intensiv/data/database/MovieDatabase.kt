@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.data.dto
+package ru.androidschool.intensiv.data.database
 
 import android.content.Context
 import androidx.room.Database

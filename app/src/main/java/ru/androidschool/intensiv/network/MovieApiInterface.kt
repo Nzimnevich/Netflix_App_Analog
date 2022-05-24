@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.data.network
+package ru.androidschool.intensiv.network
 
 import io.reactivex.Single
 import retrofit2.http.GET

@@ -1,7 +1,7 @@
 package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
-import ru.androidschool.intensiv.data.vo.MyMovie
+import ru.androidschool.intensiv.data.dto.MyMovie
 
 data class MovieResponse(
     @SerializedName("page")
