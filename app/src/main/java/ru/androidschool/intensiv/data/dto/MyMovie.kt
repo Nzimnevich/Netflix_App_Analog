@@ -3,7 +3,7 @@ package ru.androidschool.intensiv.data.vo
 import com.google.gson.annotations.SerializedName
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.data.MovieDetailsResponse
-import ru.androidschool.intensiv.data.dto.MovieEntity
+import ru.androidschool.intensiv.data.database.MovieEntity
 
 data class MyMovie(
     @SerializedName("id")
