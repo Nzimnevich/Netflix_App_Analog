@@ -3,6 +3,7 @@ package ru.androidschool.intensiv.presentation.feed
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
@@ -10,6 +11,7 @@ import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.dto.MyMovie
 import ru.androidschool.intensiv.databinding.FeedFragmentBinding
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
 import ru.androidschool.intensiv.extensions.applySchedulers
@@ -81,8 +83,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                             movieMapper.getMovieForUI(
                                 it1,
                                 R.string.recommended,
-                                options,
-                                this
+                                ::openMovieDetails
                             )
                         }
 
@@ -91,8 +92,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                             movieMapper.getMovieForUI(
                                 it1,
                                 R.string.popular,
-                                options,
-                                this
+                                ::openMovieDetails
                             )
                         }
 
@@ -109,6 +109,14 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             )
 
         compositeDisposable.add(zipResult)
+    }
+
+    private fun openMovieDetails(movie: MyMovie) {
+        val bundle = Bundle()
+
+            bundle.putString(KEY_ID, movie.id.toString())
+            findNavController().navigate(R.id.movie_details_fragment, bundle, options)
+
     }
 
     private fun openSearch(searchText: String) {

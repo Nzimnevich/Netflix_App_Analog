@@ -5,18 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.dto.MyMovie
+import ru.androidschool.intensiv.data.mappers.MovieMapper
 import ru.androidschool.intensiv.databinding.FeedHeaderBinding
 import ru.androidschool.intensiv.databinding.FragmentSearchBinding
 import ru.androidschool.intensiv.extensions.applySchedulers
 import ru.androidschool.intensiv.extensions.setLoaderForObservable
 import ru.androidschool.intensiv.network.MovieApiClient
-import ru.androidschool.intensiv.data.mappers.MovieMapper
+import ru.androidschool.intensiv.presentation.feed.FeedFragment
 import ru.androidschool.intensiv.presentation.feed.FeedFragment.Companion.KEY_SEARCH
 import timber.log.Timber
 
@@ -65,14 +68,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     {
                         val searchMovies = MovieApiClient.apiClient.getSearchMovies(query = it)
                         val searchMovieDisposable: Disposable =
-                            searchMovies.applySchedulers().subscribe({
+                            searchMovies.applySchedulers().subscribe({ it ->
                                 val movies = it.movies
                                 val items = movies?.let {
                                     movieMapper.getMovieForUI(
                                         it,
                                         R.string.we_find,
-                                        options,
-                                        this
+                                        ::openMovieDetails
                                     )
                                 }
                                 binding.actorsRv.adapter = adapter.apply {
@@ -94,6 +96,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 )
 
         compositeDisposable.add(disposable)
+    }
+
+    private fun openMovieDetails(movie: MyMovie) {
+        val bundle = Bundle()
+
+        bundle.putString(FeedFragment.KEY_ID, movie.id.toString())
+        findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }
 
     override fun onDestroyView() {

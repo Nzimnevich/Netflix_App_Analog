@@ -59,9 +59,7 @@ class TvShowsFragment : Fragment(), TVShowsPresenter.TVShowsView {
 
     override fun showMovies(movies: List<TVItem>) {
         binding.tvShowsRv.adapter = adapter.apply {
-            if (movies != null) {
-                addAll(movies)
-            }
+            addAll(movies)
         }
     }
 

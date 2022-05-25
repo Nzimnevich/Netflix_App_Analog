@@ -13,7 +13,7 @@ class TVShowsPresenter(private val useCase: TVShowsUseCase) :
                 { it ->
                     val tv = it.movies
                     val moviesList = tv?.map { TVItem(it) { movies -> } }?.toList()
-                    if (moviesList != null) {
+                    moviesList?.let {
                         view?.showMovies(moviesList)
                     }
                 },
