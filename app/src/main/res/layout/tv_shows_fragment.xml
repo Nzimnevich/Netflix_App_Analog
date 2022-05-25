@@ -6,7 +6,7 @@
         android:background="@color/blueDark"
         android:scrollbars="vertical"
         tools:listitem="@layout/serials_item"
-        tools:context="ru.androidschool.intensiv.ui.tvshows.TvShowsFragment">
+        tools:context=".presentation.tvshows.TvShowsFragment">
 
 
 </androidx.recyclerview.widget.RecyclerView>

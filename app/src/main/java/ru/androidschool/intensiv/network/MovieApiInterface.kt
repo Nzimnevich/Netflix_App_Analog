@@ -6,7 +6,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.data.CastDetailsResponse
-import ru.androidschool.intensiv.data.CastResponse
 import ru.androidschool.intensiv.data.MovieDetailsResponse
 import ru.androidschool.intensiv.data.MovieResponse
 
